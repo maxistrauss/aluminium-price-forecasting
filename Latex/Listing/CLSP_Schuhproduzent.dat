@@ -1,0 +1,16 @@
+T = 5;  // Anzahl an Perioden.
+K = 2;  // Anzahl an Produkten.
+J = 1;  // Anzahl an Ressourcen.
+// M muss wenigstens so groß wie die Summe an Bedarfen sein.
+M = 200; 
+// Nettobedarfe:
+d = [[0, 0, 0, 60, 40]
+	 [0, 0, 0, 40, 60]];
+// Kapazitäten:
+b = [[100,100,100,100,100]];
+h = [100, 100];    // Lagerkostensätze. 
+s = [1, 1];        // Rüstkostensätze.
+tb = [[1], [1]];   // Stückbearbeitungszeiten.
+tr = [[0], [0]];   // Rüstzeiten. 
+z = [1, 1];        // Mindestvorlaufzeiten.
+y0 = [0, 0];       // Anfangslagerbestände.

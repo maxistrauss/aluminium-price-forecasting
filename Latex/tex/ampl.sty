@@ -1,0 +1,49 @@
+% Extension for listings package
+\lstdefinelanguage{ampl}{
+  % See AMPL book (1993 edition), Appendix A
+  morekeywords={%
+    % Table A.1
+    % Excluding symbols and "not X", where X (and not) are keywords
+    if, then, else, or,  exists, forall,  and, in, within, 
+    not, union, diff, symdiff, inter, cross, setof, by, sum, constraints, int, dvar, float, range, boolean,
+    % Skipping: less, prod, min, max, div, mod,
+    % Skipping built-in functions (Tables A-2 and A-3)
+    % Section A.5 -- Declarations of model entities (subject to ->
+    % subject, to)
+    set, param, var, arc, minimize, maximize, subject, to, node,
+    % Section A.6 -- Set declarations (not repeating set or within)
+    dimen, default, card, ordered, by, reversed, circular,
+    % Section A.7 -- Parameter declarations (not repeating in, default)
+    param, binary, integer, symbolic, check, Infinity
+    % Section A.8 -- Variable declarations
+    var,  coeff, cover, obj,
+    % Section A.13 -- Command language
+    % Skipping most commands!
+    include, model, data, let, objective, drop, restore, solve,
+    solution, quit, end, option, reset, update, commands,
+    % A.14 -- Imported functions
+    function, pipe, 
+    % A.17 synonyms for previously-defined keywords
+    coef, difference, dimen, dimension, intersect, intersection, s.t., 
+    % 
+    % must be defined somewhere ...
+    for, while, repeat, break,
+    % NEW language features (http://www.ampl.com/NEW/newlang.html)
+    % Grouped by page
+    purge, problem, redeclare, xref,
+    complements, 
+    table, IN, OUT, INOUT, read, write, 
+    expand,
+    for, commands, repeat, until, while, break, continue,
+  },
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  string=[b]",
+  morestring=[b]',
+}[keywords,comments,strings]
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "main"
+%%% End: 
+
