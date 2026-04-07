@@ -1,1 +1,12 @@
 .idea
+*.aux
+*.bbl
+*.out
+*.synctex.gz
+*.blg
+*.log
+*.fls
+*.ilg
+*.ind
+*.fdb_latexmk
+*.toc
