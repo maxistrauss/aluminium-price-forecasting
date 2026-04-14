@@ -10,3 +10,7 @@
 *.ind
 *.fdb_latexmk
 *.toc
+*.xml
+*.bcf
+*.idx
+*.pdf
