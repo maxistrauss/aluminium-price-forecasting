@@ -86,8 +86,6 @@
 % Stichwortverzeichnis
 \usepackage[nonewpage]{imakeidx}
 \makeindex[intoc=false, title=, options=-g -s tex/_index \%.idx]
-
-
 %-----------------------------------------------------------------------------------
 % Bibilothek
 %-----------------------------------------------------------------------------------
@@ -241,75 +239,93 @@ isbn=false		% Keine Ausbage der ISBN
 \input{tex/Eigene_Methoden}
 
 \begin{document}
-	% --------------------------------------------------------------------------------
-	% Globale Formateinstellungen
-	% --------------------------------------------------------------------------------
-	\onehalfspacing
-	% Abstände Überschrift
+% --------------------------------------------------------------------------------
+% Globale Formateinstellungen
+% --------------------------------------------------------------------------------
+\onehalfspacing
+% Abstände Überschrift
 %	\titlespacing{\section}{0pt}{42pt}{6pt}
 %	\titlespacing{\subsection}{0pt}{12pt}{6pt}
 %	\titlespacing{\subsubsection}{0pt}{12pt}{6pt}
 
-	% Kopf- und Fußzeile
-	\pagestyle{fancy}
-	\lhead{}\chead{}
-	\rhead{\thesection\space\contentsname}
-	\lhead{}\cfoot{}
-	\rfoot{\ \linebreak \thepage}
-	\renewcommand{\headrulewidth}{0.4pt}
-	\renewcommand{\footrulewidth}{0.4pt}
+% Kopf- und Fußzeile
+\pagestyle{fancy}
+\lhead{}\chead{}
+\rhead{\thesection\space\contentsname}
+\lhead{}\cfoot{}
+\rfoot{\ \linebreak \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
 
-	% Nummerierung
-	\renewcommand{\thesection}{\Roman{section}}
-	\renewcommand{\theHsection}{\Roman{section}}
-	\pagenumbering{Roman}
+% Nummerierung
+\renewcommand{\thesection}{\Roman{section}}
+\renewcommand{\theHsection}{\Roman{section}}
+\pagenumbering{Roman}
 
-	% eigene Farbdefinitionen
-	\definecolor{lip}{HTML}{3366FF}
-	\definecolor{grey}{HTML}{ABABAB}
+% eigene Farbdefinitionen
+\definecolor{lip}{HTML}{3366FF}
+\definecolor{grey}{HTML}{ABABAB}
 
-	\setkomafont{disposition}{\bfseries\normalsize} %für Times New Roman in Überschriften
+\setkomafont{disposition}{\bfseries\normalsize} %für Times New Roman in Überschriften
 
 \pagebreak
 \input{tex/Titelseite}
 \pagebreak
-%\pagebreak
-%\input{tex/Titelseite-Bachelorarbeit}
-%\pagebreak
-%\input{tex/Titelseite-Masterarbeit}
 
 
-		% ------------------------------------------------------------------------------
-		% Inhaltsverzeichnis
-		% ------------------------------------------------------------------------------
-		% Inhaltsverzeichnis
-		\singlespacing %Zeilenabstand reduzieren
-		\setcounter{section}{0}
-		\setcounter{page}{1}
-		\addcontentsline{toc}{section}{Inhaltsverzeichnis} %Hinzufügen des Inhaltsverzeichnises selbst
+% ------------------------------------------------------------------------------
+% Inhaltsverzeichnis
+% ------------------------------------------------------------------------------
+% Inhaltsverzeichnis
+\singlespacing %Zeilenabstand reduzieren
+\setcounter{section}{0}
+\setcounter{page}{1}
+\addcontentsline{toc}{section}{Inhaltsverzeichnis} %Hinzufügen des Inhaltsverzeichnises selbst
 
-		\tableofcontents %Ausgabe des Inhaltsverzeichnisses
-		\pagebreak
+\tableofcontents %Ausgabe des Inhaltsverzeichnisses
+\pagebreak
 
-		% ------------------------------------------------------------------------------
-		% Setzen der Nummerierungen für Normaltext
-		% ------------------------------------------------------------------------------
-		\onehalfspacing %Zeilenabstand auf 1.5
-		\renewcommand{\thesection}{\arabic{section}} %Arabische Beschriftung für Absatznummern
-		\pagenumbering{arabic}	%Seitennummerierung auf arabisch setzen
-		\setcounter{page}{1}	%Seitenzahl für Inhalt auf 1 setzen
-		\setcounter{section}{0}	% Kopfzeile mit aktuellem Hauptkapitel darstellen
-		\renewcommand{\sectionmark}[1]{\markright{#1}}	%Section ausgeben
-		\renewcommand{\subsectionmark}[1]{}				%Subsection nicht ausgeben
-		\renewcommand{\subsubsectionmark}[1]{}			%Subsubsection nicht ausgeben
-		\rhead{\rightmark}								%Ausgabe Rechtsbündig
+% ------------------------------------------------------------------------------
+% Setzen der Nummerierungen für Normaltext
+% ------------------------------------------------------------------------------
+\onehalfspacing %Zeilenabstand auf 1.5
+\renewcommand{\thesection}{\arabic{section}} %Arabische Beschriftung für Absatznummern
+\pagenumbering{arabic}	%Seitennummerierung auf arabisch setzen
+\setcounter{page}{1}	%Seitenzahl für Inhalt auf 1 setzen
+\setcounter{section}{0}	% Kopfzeile mit aktuellem Hauptkapitel darstellen
+\renewcommand{\sectionmark}[1]{\markright{#1}}	%Section ausgeben
+\renewcommand{\subsectionmark}[1]{}				%Subsection nicht ausgeben
+\renewcommand{\subsubsectionmark}[1]{}			%Subsubsection nicht ausgeben
+\rhead{\rightmark}								%Ausgabe Rechtsbündig
 
 
 %\input{tex/example.tex}
 
-\input{tex/content.tex}
-    
+\input{tex/content/einleitung.tex}
+\pagebreak
+\input{tex/content/fachlicher_hintergrund_und_problemstellung.tex}
+\pagebreak
+\input{tex/content/datenbasis_und_datenaufbereitung.tex}
+\pagebreak
+\input{tex/content/systemarchitektur_und_methodik.tex}
+\pagebreak
+\input{tex/content/regelbasierter_ansatz.tex}
+\pagebreak
+\input{tex/content/ki_komponente_und_hybrid_ansatz.tex}
+\pagebreak
+\input{tex/content/ergebnisse_und_evaluation.tex}
+\pagebreak
+\input{tex/content/explainability_und_entscheidungsnachvollziehbarkeit.tex}
+\pagebreak
+\input{tex/content/diskussion_und_reflexion.tex}
+\pagebreak
+\input{tex/content/fazit_und_ausblick.tex}
+\pagebreak
+\input{tex/content/anhang.tex}
+\pagebreak
+
+
 %\pagebreak
 %\input{tex/Ehrenwoertliche-Erklaerung}
 
-	\end{document}
+\end{document}
