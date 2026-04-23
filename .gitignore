@@ -14,3 +14,4 @@
 *.bcf
 *.idx
 *.pdf
+__pycache__/
