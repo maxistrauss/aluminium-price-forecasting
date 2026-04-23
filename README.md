@@ -1,5 +1,28 @@
 # FPP
 
+## Forecasting
+
+forecast price for next weeks and months
+
+### Current Price
+
+todays price will also be tomorrows price
+
+### Average Price
+
+last months average price will be tomorrows price
+
+### Time Series ARIMA
+
+### Time Series LSTM Network
+
+### Random Forest
+
+???
+
+### etc
+
+
 
 
 ## Getting started
