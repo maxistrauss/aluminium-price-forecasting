@@ -23,7 +23,9 @@ last months average price will be tomorrows price
 ### etc
 
 
+## UV
 
+[UV commands](https://docs.astral.sh/uv/getting-started/features/#scripts)
 
 ## Getting started
 
