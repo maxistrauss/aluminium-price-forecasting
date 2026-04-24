@@ -1,5 +1,15 @@
 # FPP
 
+## TODO
+
+[ ] Ablauf:
+[x] Data cleaning
+[ ] Feature Engineering
+[ ] Baseline Modelle
+[ ] Machine learning Modelle
+[ ] Deep learning modelle (Transformer und co)
+[ ] Evaluation
+
 ## Forecasting
 
 forecast price for next weeks and months
