@@ -2,14 +2,14 @@
 
 ## TODO
 
-[ ] Ablauf:
-[ ] Datensätze finden
-[x] Data cleaning
-[ ] Feature Engineering
-[ ] Baseline Modelle
-[ ] Machine learning Modelle
-[ ] Deep learning modelle (Transformer und co)
-[ ] Evaluation
+- [ ] Ablauf:
+- [ ] Datensätze finden
+- [x] Data cleaning
+- [ ] Feature Engineering
+- [ ] Baseline Modelle
+- [ ] Machine learning Modelle
+- [ ] Deep learning modelle (Transformer und co)
+- [ ] Evaluation
 
 ## Forecasting
 
