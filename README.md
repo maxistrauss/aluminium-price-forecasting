@@ -3,6 +3,7 @@
 ## TODO
 
 [ ] Ablauf:
+[ ] Datensätze finden
 [x] Data cleaning
 [ ] Feature Engineering
 [ ] Baseline Modelle
