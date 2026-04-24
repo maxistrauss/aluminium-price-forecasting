@@ -1,2 +1,2 @@
 bulid-latex:
-	latexmk -xelatex Vorlage.tex
+	pdflatex Vorlage.tex
