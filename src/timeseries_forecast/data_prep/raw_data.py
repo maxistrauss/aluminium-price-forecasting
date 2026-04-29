@@ -1,6 +1,6 @@
 ﻿import pandas as pd
 
-from timeseries_forecast.data_prep.constants import RAW_ALUMINIUM_DATA_PATH, RawAluColumn
+from timeseries_forecast.data_prep.constants import RAW_ALUMINIUM_DATA_PATH, RawAluColumn, METALS_ALUMINIUM_DATA_PATH, METALS_COPPER_DATA_PATH, METALS_GOLD_DATA_PATH, METALS_LEAD_DATA_PATH, METALS_NICKEL_DATA_PATH, METALS_SILVER_DATA_PATH, METALS_ZINC_DATA_PATH   
 # add more paths if more files
 
 
@@ -31,7 +31,7 @@ def _parse_volume_to_float(value: object) -> float:
 
 
 def read_raw_alu_data():
-    df = pd.read_csv(RAW_ALUMINIUM_DATA_PATH)
+    df = pd.read_csv(METALS_ALUMINIUM_DATA_PATH)
     df[RawAluColumn.OPEN_TIME] = pd.to_datetime(df[RawAluColumn.OPEN_TIME])
 
     # Convert market-style numeric strings (e.g. 2,528.00 | 21.89K | -0.22%)
