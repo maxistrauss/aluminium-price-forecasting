@@ -1,4 +1,8 @@
+
+from src.test import question
+
 def main():
+    question()
     print("Hello from fpp!")
 
 
