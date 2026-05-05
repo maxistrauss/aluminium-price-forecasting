@@ -1,4 +1,4 @@
-﻿from typing import Callable, Optional
+﻿from typing import Callable, Optional, Union
 import pandas as pd
 from timeseries_forecast.data_prep.data_cleaning import set_timestamp_as_index, interpolate_gaps
 from timeseries_forecast.data_prep.checks import check_0_values, check_duplicates, check_missing_values, check_nan_values
@@ -10,6 +10,7 @@ def run_all_checks(
     expected_freq: Optional[str] = "h",
     run_zero_value_check: bool = True,
     zero_value_ignore_cols: Optional[list[str]] = None,
+    fail_on_row_duplicates: bool = False,
 ) -> bool:
 
     # 1) Check for duplicates
@@ -30,7 +31,7 @@ def run_all_checks(
 
     all_checks_passed = (
         not duplicate_check_result.has_index_duplicates
-        and not duplicate_check_result.has_row_duplicates
+        and (not duplicate_check_result.has_row_duplicates or not fail_on_row_duplicates)
         and not has_gaps
         and not nan_check_result.has_nan
         and not has_null
@@ -39,7 +40,7 @@ def run_all_checks(
 
 
 def run_data_pipeline(
-    data_frame_loading_function: Callable,
+    data_frame_or_loader: Union[pd.DataFrame, Callable],
     timestamp_column: str = "timestamp",
     data_freq: Optional[str] = "h",
     interpolation_freq: Optional[str] = None,
@@ -48,6 +49,7 @@ def run_data_pipeline(
     zero_as_nan_cols: Optional[list[str]] = None,
     run_zero_value_check: bool = True,
     zero_value_ignore_cols: Optional[list[str]] = None,
+    fail_on_row_duplicates: bool = False,
     do_split: bool = True,
     split_train_end: str = "2021-12-31 23:00:00",
     split_val_end: str = "2023-06-30 23:00:00",
@@ -56,8 +58,11 @@ def run_data_pipeline(
     split_val_label: str = "Val",
     split_test_label: str = "Test",
 ) -> pd.DataFrame:
-    # Step 1: Load raw data using the provided loading function
-    df_raw = data_frame_loading_function()
+    # Step 1: Load raw data (accept either DataFrame directly or a callable that returns one)
+    if isinstance(data_frame_or_loader, pd.DataFrame):
+        df_raw = data_frame_or_loader
+    else:
+        df_raw = data_frame_or_loader()
     df = set_timestamp_as_index(df_raw, timestamp_column=timestamp_column)
 
     all_checks_passed = run_all_checks(
@@ -65,6 +70,7 @@ def run_data_pipeline(
         expected_freq=data_freq,
         run_zero_value_check=run_zero_value_check,
         zero_value_ignore_cols=zero_value_ignore_cols,
+        fail_on_row_duplicates=fail_on_row_duplicates,
     )
 
     effective_interpolation_freq = interpolation_freq if interpolation_freq is not None else data_freq
@@ -82,6 +88,7 @@ def run_data_pipeline(
         expected_freq=data_freq,
         run_zero_value_check=run_zero_value_check,
         zero_value_ignore_cols=zero_value_ignore_cols,
+        fail_on_row_duplicates=fail_on_row_duplicates,
     )
     if not all_checks_passed:
         raise ValueError("Data checks failed after cleaning. Please investigate the issues before proceeding.")

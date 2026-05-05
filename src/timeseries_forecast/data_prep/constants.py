@@ -15,7 +15,7 @@ METALS_SILVER_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "S
 METALS_ZINC_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Zinc_Historical_Data.csv"
 
 
-class RawAluColumn(str, Enum):
+class RawMetalsColumn(str, Enum):
     OPEN_TIME = "Date"
     PRICE = "Price"
     OPEN = "Open"
