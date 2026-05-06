@@ -15,6 +15,26 @@ METALS_SILVER_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "S
 METALS_ZINC_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Zinc_Historical_Data.csv"
 
 
+# Konfiguration für das Merging von Datensätzen
+# Ändere diese Liste, um Datensätze hinzuzufügen oder zu entfernen
+# Format: [("PRÄFIX", "parameter_name_in_merge_function"), ...]
+# MERGE_DATASET_CONFIG_OLD = [
+#     ("BTC", "btc_df_cleaned"),
+#     ("ETH", "eth_df_cleaned"),
+#     ("GOLD", "gold_df_cleaned"),
+#     ("SP500", "sp500_df_cleaned"),
+# ]
+
+MERGE_DATASET_CONFIG = [
+    ("ALU", "alu_df_cleaned"),
+    ("COPPER", "copper_df_cleaned"),
+    ("GOLD", "gold_df_cleaned"),
+    ("LEAD", "lead_df_cleaned"),
+    ("NICKEL", "nickel_df_cleaned"),
+    ("SILVER", "silver_df_cleaned"),
+    ("ZINC", "zinc_df_cleaned"),
+]
+
 class RawMetalsColumn(str, Enum):
     OPEN_TIME = "Date"
     PRICE = "Price"

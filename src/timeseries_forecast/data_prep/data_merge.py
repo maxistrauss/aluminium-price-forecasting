@@ -1,26 +1,48 @@
 ﻿import pandas as pd
-from timeseries_forecast.data_prep.constants import RawBitcoinColumn, RawEthColumn, RawGoldPriceColumn
+from timeseries_forecast.data_prep.constants import MERGE_DATASET_CONFIG
 
 
-def merge_all_raw_data(btc_df_cleaned, eth_df_cleaned, gold_df_cleaned, sp500_df_cleaned):
+def merge_all_raw_data(**datasets):
+    """
+    Mergt mehrere Datensätze dynamisch basierend auf MERGE_DATASET_CONFIG in constants.py.
     
-    # Add prefixes to distinguish columns from different sources (all columns, no timestamp exclusion)
-    btc_df = btc_df_cleaned.rename(columns={col: f'BTC_{col}' for col in btc_df_cleaned.columns})
-    eth_df = eth_df_cleaned.rename(columns={col: f'ETH_{col}' for col in eth_df_cleaned.columns})
-    gold_df = gold_df_cleaned.rename(columns={col: f'GOLD_{col}' for col in gold_df_cleaned.columns})
-    sp500_df = sp500_df_cleaned.rename(columns={col: f'SP500_{col}' for col in sp500_df_cleaned.columns})
+    Args:
+        **datasets: Keyword-Argumente mit Datensätzen als DataFrames.
+                   Die Namen müssen mit MERGE_DATASET_CONFIG übereinstimmen.
     
-    # Merge all dataframes on index (timestamp is already set as index)
-    merged_df = btc_df.copy()
-    merged_df = merged_df.merge(eth_df, left_index=True, right_index=True, how='inner')
-    merged_df = merged_df.merge(gold_df, left_index=True, right_index=True, how='inner')
-    merged_df = merged_df.merge(sp500_df, left_index=True, right_index=True, how='inner')
+    Returns:
+        pd.DataFrame: Zusammengefügter DataFrame mit Präfixen aus MERGE_DATASET_CONFIG.
     
-    # Sort by index (timestamp)
+    Beispiel:
+        merged_df = merge_all_raw_data(
+            btc_df_cleaned=btc_df,
+            eth_df_cleaned=eth_df,
+            gold_df_cleaned=gold_df,
+            sp500_df_cleaned=sp500_df,
+        )
+    """
+    merged_df = None
+    
+    # Iteriere über die in MERGE_DATASET_CONFIG konfigurierten Datensätze
+    for prefix, param_name in MERGE_DATASET_CONFIG:
+        if param_name not in datasets:
+            raise ValueError(
+                f"Datensatz '{param_name}' nicht übergeben. "
+                f"Erforderliche Parameter: {[p[1] for p in MERGE_DATASET_CONFIG]}"
+            )
+        
+        # Hole DataFrame und füge Präfix hinzu
+        df = datasets[param_name]
+        df_prefixed = df.rename(columns={col: f'{prefix}_{col}' for col in df.columns})
+        
+        # Merge mit vorherigen DataFrames
+        if merged_df is None:
+            merged_df = df_prefixed.copy()
+        else:
+            merged_df = merged_df.merge(df_prefixed, left_index=True, right_index=True, how='inner')
+    
+    # Sortiere nach Index (Timestamp)
     merged_df = merged_df.sort_index()
-
-    # Zeitraum einheitlich begrenzen (using index)
-    #merged_df = merged_df[(merged_df.index < pd.to_datetime("2025-12-31 23:00:00.000000")) & 
-    #                      (merged_df.index >= pd.to_datetime("2018-01-02"))]
     
     return merged_df
+
