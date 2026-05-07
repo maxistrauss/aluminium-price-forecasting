@@ -13,7 +13,7 @@ METALS_LEAD_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Lea
 METALS_NICKEL_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Nickel_Historical_Data.csv"
 METALS_SILVER_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Silver_Historical_Data.csv"
 METALS_ZINC_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Zinc_Historical_Data.csv"
-
+METALS_SP500_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "SnP_500.csv"
 
 # Konfiguration für das Merging von Datensätzen
 # Ändere diese Liste, um Datensätze hinzuzufügen oder zu entfernen
@@ -26,13 +26,14 @@ METALS_ZINC_DATA_PATH = PROJECT_ROOT / "data" / "raw_data" / "new_metals" / "Zin
 # ]
 
 MERGE_DATASET_CONFIG = [
-    ("ALU", "alu_df_cleaned"),
+    ("ALU", "aluminium_df_cleaned"),
     ("COPPER", "copper_df_cleaned"),
     ("GOLD", "gold_df_cleaned"),
     ("LEAD", "lead_df_cleaned"),
     ("NICKEL", "nickel_df_cleaned"),
     ("SILVER", "silver_df_cleaned"),
     ("ZINC", "zinc_df_cleaned"),
+    ("SP500", "sp500_df_cleaned"),
 ]
 
 class RawMetalsColumn(str, Enum):

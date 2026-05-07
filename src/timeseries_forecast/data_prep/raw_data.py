@@ -9,6 +9,7 @@ from timeseries_forecast.data_prep.constants import (
     METALS_NICKEL_DATA_PATH,
     METALS_SILVER_DATA_PATH,
     METALS_ZINC_DATA_PATH,
+    METALS_SP500_DATA_PATH,
     RawMetalsColumn,
 )
 
@@ -21,6 +22,7 @@ METAL_DATA_PATHS: dict[str, object] = {
     "nickel": METALS_NICKEL_DATA_PATH,
     "silver": METALS_SILVER_DATA_PATH,
     "zinc": METALS_ZINC_DATA_PATH,
+    "sp500": METALS_SP500_DATA_PATH,
 }
 
 
@@ -54,10 +56,11 @@ def _load_raw_metals_data(data_path: object) -> pd.DataFrame:
     df = pd.read_csv(data_path)
     df[RawMetalsColumn.OPEN_TIME] = pd.to_datetime(
         df[RawMetalsColumn.OPEN_TIME],
-        format="%d-%m-%Y",
         dayfirst=True,
         errors="coerce",
     )
+
+    df = df[df[RawMetalsColumn.OPEN_TIME].notna()].copy()
 
     # Convert market-style numeric strings (e.g. 2,528.00 | 21.89K | -0.22%)
     # so downstream interpolation/checking works across different datasets.
@@ -66,7 +69,10 @@ def _load_raw_metals_data(data_path: object) -> pd.DataFrame:
 
     df[RawMetalsColumn.VOLUME] = df[RawMetalsColumn.VOLUME].map(_parse_volume_to_float)
     df[RawMetalsColumn.PCT_CHANGE] = pd.to_numeric(
-        df[RawMetalsColumn.PCT_CHANGE].astype(str).str.replace("%", "", regex=False),
+        df[RawMetalsColumn.PCT_CHANGE]
+        .astype(str)
+        .str.replace("%", "", regex=False)
+        .str.replace(",", ".", regex=False),
         errors="coerce",
     )
 

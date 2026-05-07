@@ -3,7 +3,8 @@ import pandas as pd
 from typing import Optional
 
 def set_timestamp_as_index(df: pd.DataFrame, timestamp_column: str) -> pd.DataFrame:
-    df[timestamp_column] = pd.to_datetime(df[timestamp_column])
+    df[timestamp_column] = pd.to_datetime(df[timestamp_column], dayfirst=True, errors="coerce")
+    df = df[df[timestamp_column].notna()].copy()
     df.set_index(timestamp_column, inplace=True)
     df.sort_index(inplace=True)
     return df
@@ -87,7 +88,7 @@ def interpolate_gaps(
         n_zeros = int((df_filled[col] == 0).sum())
         if n_zeros > 0:
             df_filled[col] = df_filled[col].replace(0, np.nan)
-            print(f"    {col}: {n_zeros} Nullwerte → NaN ersetzt")
+            print(f"    {col}: {n_zeros} Nullwerte -> NaN ersetzt")
 
     # 4) Interpolate numeric columns
     numeric_cols = [
@@ -106,7 +107,7 @@ def interpolate_gaps(
                 .bfill()
             )
             nan_after = int(df_filled[col].isnull().sum())
-            print(f"    {col}: {nan_before} → {nan_after} NaN")
+            print(f"    {col}: {nan_before} -> {nan_after} NaN")
         else:
             print(f"    {col}: keine NaN")
 
@@ -123,6 +124,6 @@ def interpolate_gaps(
 
     print(f"\n  Shape vorher:  {df.shape}")
     print(f"  Shape nachher: {df_filled.shape}")
-    print("✓ Interpolation abgeschlossen!")
+    print("OK: Interpolation abgeschlossen!")
 
     return df_filled

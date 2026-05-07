@@ -69,4 +69,4 @@ def resample_dataframe_with_aggregations(df, frequency, agg_config=None):
 
 # Example usage:
 # resampled_df = resample_dataframe_with_aggregations(df, '24h')
-print("✓ Function 'resample_dataframe_with_aggregations' defined")
+print("OK: Function 'resample_dataframe_with_aggregations' defined")

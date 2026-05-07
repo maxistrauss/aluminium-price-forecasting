@@ -43,24 +43,24 @@ def check_duplicates(
     if has_index_duplicates:
         dup_idx = df.index[df.index.duplicated(keep=False)]
         index_duplicate_count = len(dup_idx)
-        print(f"⚠ {index_duplicate_count} Einträge mit doppeltem {index_name}")
+        print(f"WARN: {index_duplicate_count} Einträge mit doppeltem {index_name}")
         print("  Beispiele (erste 10):")
         for ts in dup_idx.unique()[:10]:
             count_ts = (df.index == ts).sum()
             print(f"    {ts} (Anzahl: {count_ts})")
     else:
-        print(f"✓ Keine doppelten {index_name} im Index")
+        print(f"OK: Keine doppelten {index_name} im Index")
 
     # 2) Full row duplicates (all columns identical)
     dup_rows = df[df.duplicated(keep=False)]
     row_duplicate_count = len(dup_rows)
     has_row_duplicates = row_duplicate_count > 0
     if has_row_duplicates:
-        print(f"⚠ {row_duplicate_count} Zeilen sind doppelt (identischer Inhalt)")
+        print(f"WARN: {row_duplicate_count} Zeilen sind doppelt (identischer Inhalt)")
         print("  Beispiele (erste 5 Timestamps):")
         print(dup_rows.head().index)
     else:
-        print("✓ Keine identischen Zeilenduplikate gefunden")
+        print("OK: Keine identischen Zeilenduplikate gefunden")
 
     return DuplicateCheckResult(
         has_index_duplicates=has_index_duplicates,
@@ -85,9 +85,9 @@ def check_missing_values(df: pd.DataFrame, expected_freq: Optional[str] = "h") -
     n_gaps = len(missing_timestamps)
 
     if n_gaps > 0:
-        print(f"⚠ Es gibt {n_gaps} Lücken in der Zeitreihe (erwartete Frequenz: {expected_freq}).")
+        print(f"WARN: Es gibt {n_gaps} Lücken in der Zeitreihe (erwartete Frequenz: {expected_freq}).")
     else:
-        print(f"✓ Keine Lücken in der Zeitreihe gefunden (Frequenz: {expected_freq}).")
+        print(f"OK: Keine Lücken in der Zeitreihe gefunden (Frequenz: {expected_freq}).")
 
     return n_gaps > 0
 
@@ -128,12 +128,12 @@ def check_nan_values(df: pd.DataFrame) -> NanCheckResult:
     }
 
     if total_nan > 0:
-        print(f"⚠ {total_nan} NaN-Werte insgesamt gefunden:")
+        print(f"WARN: {total_nan} NaN-Werte insgesamt gefunden:")
         for col, count in nan_per_column.items():
             pct = nan_percent[col]
             print(f"  {col}: {count} ({pct:.2f}%)")
     else:
-        print("✓ Keine NaN-Werte gefunden!")
+        print("OK: Keine NaN-Werte gefunden!")
 
     return NanCheckResult(
         has_nan=total_nan > 0,
@@ -185,12 +185,12 @@ def check_0_values(
     }
 
     if total_null > 0:
-        print(f"⚠ {total_null} 0-Werte insgesamt gefunden:")
+        print(f"WARN: {total_null} 0-Werte insgesamt gefunden:")
         for col, count in null_per_column.items():
             pct = null_percent[col]
             print(f"  {col}: {count} ({pct:.2f}%)")
     else:
-        print("✓ Keine 0-Werte gefunden!")
+        print("OK: Keine 0-Werte gefunden!")
 
     return NullCheckResult(
         has_null=total_null > 0,
