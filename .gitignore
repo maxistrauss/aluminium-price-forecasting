@@ -15,3 +15,5 @@
 *.idx
 *.pdf
 __pycache__/
+Notebooks/old_notebooks_(ignore)/01_data_exploration.ipynb
+Notebooks/old_notebooks_(ignore)/06_sklearn_baselines.ipynb
