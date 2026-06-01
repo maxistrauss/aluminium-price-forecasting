@@ -1,95 +1,58 @@
 % !TeX encoding = UTF-8
 % !TeX document-id = {856115b6-76ae-40a0-94c7-827233f04a27}
 \documentclass[13pt,a4paper, listof=entryprefix, bibliography=totoc,toc=listofnumbered,lof=listofnumbered]{scrartcl}
-																			%toc=listofnumbered
+																	%toc=listofnumbered
 % WICHTIG!!!
 % Pseudokommentar um pdflatex zu erlauben andere Programme zu nutzen z.B. gnuplot
 % !TeX TXS-program:compile = txs:///pdflatex/[--shell-escape] | txs:///makeindex | txs:///biber | txs:///pdflatex/[--shell-escape]
 
-\usepackage[normalem]{ulem}
 \usepackage[ngerman]{babel}
-\usepackage{romannum}
 \usepackage[utf8]{inputenc}
 
 %Paket fuer einheitlichen Schriftsatz Times Roman
 \usepackage{mathptmx}
 
 %Paket wurde eingefügt, damit die Trennung auch bei Umlauten korrekt erfolgt
-\usepackage[T1] {fontenc} 
+\usepackage[T1]{fontenc}
 %sollte ein Wort trotzdem mal nicht richtig getrennt werden, kann dies durch
 %\hyphenation{Durch-füh-rung} %manuel getrennt werden.
-
 
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{nccmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\usepackage{adjustbox}
 \usepackage{graphicx}
 \usepackage{fancyhdr}
-\usepackage{array}
-\usepackage{tabularx}
 \usepackage{geometry}
 \usepackage{setspace}
 \usepackage[right]{eurosym}
-\usepackage[printonlyused]{acronym}
-\usepackage{subfig}
-\usepackage{floatflt}
-\usepackage[usenames,dvipsnames]{color}
 \usepackage{colortbl}
 \usepackage{xcolor}
-\usepackage{paralist}
-\usepackage{array}
-%\usepackage{titlesec}
 \usepackage{parskip}
-\usepackage{picinpar}
 \usepackage[pdfpagelabels=true]{hyperref}
 \usepackage{listings}
 \usepackage{csquotes}
 \usepackage{url}
 \usepackage{float}
-\usepackage{pgfplots}
-\usepackage[nonumberlist, nogroupskip]{glossaries}
-\usepackage{eurosym}
 \usepackage{textcomp}
- 
-\usepackage{ltablex}
-
 \usepackage{lscape}
 \usepackage{verbatim}
-\usepackage{enumitem} 
-\usepackage{tex/ampl}
-\usepackage{multirow}
+\usepackage{enumitem}
 \setitemize{leftmargin=*}
-%\usepackage{pdflscape}
-\usepackage[miktex]{gnuplottex}
-% Wird benötigt, damit die Tabelle beim Spaltentyp X die gesamte Seitenbreite verwendet. Ist unter anderem bei Tabellen in der Parameter definiert werden hilfreich.
-\keepXColumns
-
-
-
-
-%Wird zur Darstellung von Algorithmen benötigt
-\usepackage{algorithm}
-\usepackage{algorithmic}
-
-\floatname{algorithm}{Algorithmus}
-\floatname{List of Algorithms}{Algorithmen}
-\captionsetup[algorithm]{justification=raggedright,singlelinecheck=false}
 
 % Indizes
 \index{Algorithmus -- Pseudocode}
 \index{Optimierungsproblem -- Definition}
 
-
 % Stichwortverzeichnis
 \usepackage[nonewpage]{imakeidx}
 \makeindex[intoc=false, title=, options=-g -s tex/_index \%.idx]
+
 %-----------------------------------------------------------------------------------
 % Bibilothek
 %-----------------------------------------------------------------------------------
-% Einbinden des BibLateX paketes mit Ausgabeeinstellungen							   
+% Einbinden des BibLateX paketes mit Ausgabeeinstellungen
 \usepackage[
 style=alphabetic,          % Zitierstil
 maxbibnames=50,            % alle Autorennamen anzeigen
@@ -100,8 +63,8 @@ backref=false,             % Keine Angaben auf welchen Seiten die Quelle referen
 % backrefstyle=three+,       % fasst Seiten zusammen, z.B. S. 2f, 6ff, 7-10
 % date=short,                % Datumsformat
 backend = biber,           % Backnend für Aufbereitung
-doi=false,		%Keine Ausgabe des DOI
-isbn=false		% Keine Ausbage der ISBN
+doi=false,                %Keine Ausgabe des DOI
+isbn=false                % Keine Ausbage der ISBN
 ]{biblatex}
 
 %Doppelunkt nach Autorennamen
@@ -112,23 +75,8 @@ isbn=false		% Keine Ausbage der ISBN
 	\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w
 	\do\x\do\y\do\z}
 
-
-
 \newcounter{verzeichnis}
 \setcounter{verzeichnis}{1}
-
-%zur Verwendung von TikZ
-\usepackage{tikz}
-\usepackage{tikz-qtree, tikz-qtree-compat}
-\usetikzlibrary{patterns}
-%\usepackage[justification=RaggedRight,singlelinecheck=false]{caption}
-\usetikzlibrary{positioning,calc}
-\usetikzlibrary{snakes,arrows,shapes,automata,positioning}
-\usetikzlibrary{decorations,decorations.pathmorphing,decorations.markings,trees,arrows}
-\usetikzlibrary{shapes.geometric}
-\usetikzlibrary{arrows.meta}
-\usetikzlibrary{graphs,quotes,angles, babel}
-
 
 %Abstände der Einträge
 \setlength{\bibitemsep}{1em}     % Abstand zwischen den Literaturangaben
@@ -149,7 +97,11 @@ isbn=false		% Keine Ausbage der ISBN
 }
 
 % Bibliothek der Quellen
-\addbibresource{tex/biblatex.bib}
+\addbibresource{Latex/tex/biblatex.bib}
+
+\makeatletter
+\def\input@path{{Latex/}{Latex/tex/}{tex/}}
+\makeatother
 
 % --------------------------------------------------------------------------------
 % Einstellung für Listings
@@ -157,10 +109,6 @@ isbn=false		% Keine Ausbage der ISBN
 \lstset{basicstyle=\footnotesize, captionpos=b, breaklines=true, showstringspaces=false, tabsize=2, frame=lines, numbers=left, numberstyle=\tiny, xleftmargin=2em, framexleftmargin=2em}
 \makeatletter
 \def\l@lstlisting#1#2{\@dottedtocline{1}{0em}{1em}{\hspace{1,5em} Lst. #1}{#2}}
-\makeatother
-
-\makeatletter
-\def\l@algorithm#1#2{\@dottedtocline{1}{0em}{0em}{\hspace{0em} Algorithmus #1}{#2}}
 \makeatother
 
 %Einstellung für Umlaute in Listings
@@ -181,13 +129,10 @@ isbn=false		% Keine Ausbage der ISBN
 %Aufzählungen mit Nummerierungen
 \setlist[enumerate]{wide=0pt, leftmargin=*}
 
-
 % --------------------------------------------------------------------------------
 % Seitenformate
 % --------------------------------------------------------------------------------
-%Seitenformat
-%\geometry{a4paper, top=27mm, left=30mm, right=20mm, bottom=32mm, headsep=12mm, footskip=12mm}
- \geometry{a4paper, top=20mm, left=30mm, right=20mm, bottom=25mm, headsep= 8mm, footskip=12mm}
+\geometry{a4paper, top=20mm, left=30mm, right=20mm, bottom=25mm, headsep=8mm, footskip=12mm}
 
 % --------------------------------------------------------------------------------
 % Metainformationen
@@ -202,37 +147,9 @@ isbn=false		% Keine Ausbage der ISBN
 % 	pdfnewwindow=true,
 % 	colorlinks=true,linkcolor=black,citecolor=black,filecolor=magenta,urlcolor=black}
 % \pdfinfo{/CreationDate (D:20141024101000)}
-\pgfplotsset{compat=1.11}
-
-%-----------------------------------------------------------------------------------
-% Abkürzungen AKRONYME HIER ERGÄNZEN
-%-----------------------------------------------------------------------------------
-\glssetwidest{MLCLSP}% Längste Abkürzung für eine korrekte Einrückung
-
-\makenoidxglossaries %Leeres Verzeichnis erstellen
-%\makeglossaries %Leeres Verzeichnis erstellen
-
-%Abkürzungen hinzufügen
-\newacronym{LIP}{LIP}{Labor für Informationstechnik und Produktionslogistik}
-\newacronym{OTH}{OTHR}{Ostbayerische Technische Hochschule Regensburg}
-\newacronym{MRP}{MRP}{Material Requirements Planing}
-\newacronym{RCPSP}{RCPSP}{Resource-Constrained Project Scheduling Problem}
-\newacronym{MLCLSP}{MLCLSP}{Multi-level capacipated lot-sizing Problem}
-\newacronym{ME}{ME}{Mengeneinheit}
-\newacronym{ZE}{ZE}{Zeiteinheit}
-\newacronym{GE}{GE}{Geldeinheit}
-\newacronym{WIP}{WIP}{Work in process}
-\newacronym{ILOG}{ILOG}{IBM ILOG CPLEX Optimisation Studio}
-\newacronym{OPL}{OPL}{Open Programming Language}
-\newacronym{PPS}{PPS}{Produktionsplanung- und Steuerung}
-\newacronym{FIFO}{FIFO}{First in first out}
-\newacronym{LIFO}{LIFO}{Last in first out}
-\newacronym{DLZ}{DLZ}{Durchlaufzeit}
-\newacronym{ERP}{ERP}{Enterprise-Resource-Planning}
 
 \addtokomafont{disposition}{\boldmath}
 %\addtokomafont{section}{\bfseries}
-
 
 \input{tex/Eigene_Methoden}
 
@@ -241,10 +158,6 @@ isbn=false		% Keine Ausbage der ISBN
 % Globale Formateinstellungen
 % --------------------------------------------------------------------------------
 \onehalfspacing
-% Abstände Überschrift
-%	\titlespacing{\section}{0pt}{42pt}{6pt}
-%	\titlespacing{\subsection}{0pt}{12pt}{6pt}
-%	\titlespacing{\subsubsection}{0pt}{12pt}{6pt}
 
 % Kopf- und Fußzeile
 \pagestyle{fancy}
@@ -270,11 +183,9 @@ isbn=false		% Keine Ausbage der ISBN
 \input{tex/Titelseite}
 \pagebreak
 
-
 % ------------------------------------------------------------------------------
 % Inhaltsverzeichnis
 % ------------------------------------------------------------------------------
-% Inhaltsverzeichnis
 \singlespacing %Zeilenabstand reduzieren
 \setcounter{section}{0}
 \setcounter{page}{1}
@@ -288,14 +199,13 @@ isbn=false		% Keine Ausbage der ISBN
 % ------------------------------------------------------------------------------
 \onehalfspacing %Zeilenabstand auf 1.5
 \renewcommand{\thesection}{\arabic{section}} %Arabische Beschriftung für Absatznummern
-\pagenumbering{arabic}	%Seitennummerierung auf arabisch setzen
-\setcounter{page}{1}	%Seitenzahl für Inhalt auf 1 setzen
-\setcounter{section}{0}	% Kopfzeile mit aktuellem Hauptkapitel darstellen
-\renewcommand{\sectionmark}[1]{\markright{#1}}	%Section ausgeben
-\renewcommand{\subsectionmark}[1]{}				%Subsection nicht ausgeben
-\renewcommand{\subsubsectionmark}[1]{}			%Subsubsection nicht ausgeben
-\rhead{\rightmark}								%Ausgabe Rechtsbündig
-
+\pagenumbering{arabic} %Seitennummerierung auf arabisch setzen
+\setcounter{page}{1} %Seitenzahl für Inhalt auf 1 setzen
+\setcounter{section}{0} % Kopfzeile mit aktuellem Hauptkapitel darstellen
+\renewcommand{\sectionmark}[1]{\markright{#1}} %Section ausgeben
+\renewcommand{\subsectionmark}[1]{} %Subsection nicht ausgeben
+\renewcommand{\subsubsectionmark}[1]{} %Subsubsection nicht ausgeben
+\rhead{\rightmark} %Ausgabe Rechtsbündig
 
 %\input{tex/example.tex}
 
@@ -321,7 +231,6 @@ isbn=false		% Keine Ausbage der ISBN
 \pagebreak
 \input{tex/content/anhang.tex}
 \pagebreak
-
 
 \printbibliography[title={Literaturverzeichnis}]
 
