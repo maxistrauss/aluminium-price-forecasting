@@ -10,3 +10,49 @@
         \item Hybrid-Ansatz
     \end{itemize}
 \end{itemize}
+
+
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/baseline_comparison_one_step_res_1h.png}
+	\caption{Vergleich verschiedener Modelle auf den Testdaten mit einer Baseline. Besonders gilt es hier die Directional Accuracy zu Betrachten. Diese gibt an Ob das Modell die Richtung der Preisentwicklung korrekt vorhersagen kann. Die besten Modelle erreichen hier allerdings nur eine Genaugikeit von 50\%. Man kann also von den Modellen keinere genauer Vorhersage als von einem Münzwurf erwarten.}
+    \label{fig:model_comp}
+\end{figure}
+
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/dl_models_test_predictions.png}
+	\caption{Vorhersagen der Modelle für die Veränderung des Aluminiumpreises für den Nächsten Tag. Man kann erkennen das die Modell keine wirkliche Preisänderung, sondern immer eine $\approx 0\%$ Preisänderung vorhersagen.}
+    \label{fig:daily_price_change}
+\end{figure}
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/dl_models_test_price_predictions.png}
+	\caption{Vorhersage des Aluminiumpreises für den Nächsten Tag mit GRU Modell. Man kann deutlich erkennen das das Modell wie in Abb. \ref{fig:daily_price_change} keinen neuen Preis vorhersagt, sonder nur den Preis des vorherigen Tages ohne änderung wiedergibt. Deswegen entspricht die Vorhersage Kurve der Wahren Kurve mit einer Verschiebung von einem Tag in die Zukunft.}
+    \label{fig:daily_price_pred}
+\end{figure}
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/dl_models_walk_forward_price_plot.png}
+	\caption{Im Gegensatz zu Abb. \ref{fig:daily_price_pred} kann nun Versucht werden den Preis für mehr als nur ein Tag vorzusagen. Da das Modell allerdings nicht mal einen Tag vorhersagen kann muss man davon ausgehen das mehrere Tage auch nicht funktionieren können. Genau dies ist auch in der Abbildung zu sehen, die Vorhersage verhählt sich nicht wie der Tatsächliche Aluminiumpreis, sondern entspricht immer dem Preis des Vortages plus einem Fehler (Bias des Modells) der sich aufsummiert.}
+    \label{fig:price_pred}
+\end{figure}
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/dl_ncc_models_test_predictions.png}
+	\caption{abb. 6}
+    \label{fig:test_pred}
+\end{figure}
+
+\begin{figure}[hpt!]
+\centering
+	\includegraphics[width=0.9\linewidth]{./img/final_test_evaluation.png}
+	\caption{abb. 7}
+    \label{fig:finale_testerg}
+\end{figure}
+
