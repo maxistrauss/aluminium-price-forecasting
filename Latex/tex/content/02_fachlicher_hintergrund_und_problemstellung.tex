@@ -1,29 +1,25 @@
 \section{Fachlicher Hintergrund und Problemstellung}
+\label{sec:fachlicher_hintergrund}
 
-Wie Kapitel \ref{sec:einleitung} bereits erläutert, wird Aluminium in vielen Industriezweigen verwendet. Da die Herstellung von Aluminium energieintensiv ist, sind die Preise für diesen Rohstoff oft volatil und können von verschiedenen Faktoren beeinflusst werden. Diese nicht linearen Zusammenhänge und die Vielzahl von Einflussfaktoren machen die Vorhersage der Aluminiumpreise zu einer komplexen Aufgabe. In diesem Kapitel wird der fachliche Hintergrund und die Problemstellung im Zusammenhang mit der Aluminiumpreisvorhersage näher erläutern.
+In der industriellen Fertigung ist Aluminium aufgrund seiner spezifischen Eigenschaften (geringes Gewicht, hohe Korrosionsbeständigkeit) ein bevorzugter Werkstoff. Der Preis für Aluminium wird primär an internationalen Börsen wie der "`London Metal Exchange"' gebildet. Für Betriebe stellt der Aluminiumeinkauf einen großen Kostenblock dar, wobei die Preisvolatilität ein erhebliches Risiko bedeutet.
 
-\paragraph{Ein realer Geschäftsprozess}
-Ein realer Geschäftsprozess beinhaltet ein Unternehmen, das Aluminium als Rohstoff verwendet. Dieses hat eine Rahmenvereinbarung mit einem Lieferanten, Aluminium zu einem festen Preis zu kaufen. Das Unternehmen tätigt regelmäßig Käufe bei diesem Lieferanten, um den Bedarf an Aluminium zu decken. Die Entscheidung, wann und wie viel Aluminium abgerufen werden soll, hängt von der aktuellen und erwarteten Preisentwicklung ab. Wenn die Preise steigen, kann das Unternehmen entscheiden, mehr Aluminium zu einem günstigeren Preis zu kaufen, um Kosten zu sparen. Wenn die Preise jedoch sinken, kann das Unternehmen entscheiden, weniger Aluminium zu kaufen oder sogar auf einen anderen Lieferanten umzusteigen, um von den niedrigeren Preisen zu profitieren.
+\paragraph{Der industrielle Beschaffungsprozess}
+Der Beschaffungsprozess für Aluminium in großen Unternehmen ist meist durch Rahmenvereinbarungen mit Lieferanten gekennzeichnet. Diese Verträge legen Liefermengen für einen längeren Zeitraum fest, wobei der tatsächliche Preis zum Zeitpunkt des Abrufs oft an den aktuellen Börsenpreis verbunden ist. Die Einkaufsabteilung steht immer vor der Entscheidung, zu welchem Zeitpunkt Teilmengen gekauft werden sollen. Eine frühzeitige Beschaffung bei vorhersehbarer Preissteigerungen sichert günstigere Preise, erhöht jedoch die Kapitalbindungskosten und das Lagerrisiko. Umgekehrt kann ein später Kauf bei fallenden Preisen Kosten einsparen, birgt jedoch die Gefahr von Versorgungsengpässen oder unvorhergesehenen Preissprüngen.
 
-\paragraph{Aluminiumpreisprozess}
-Ein Aluminiumpreisprozess umfasst somit die Preisentwicklung, die Rahmenvereinbarung und Abrufe sowie die Angebotsentscheidung. Die Rahmenvereinbarung legt die Bedingungen für den Kauf fest, einschließlich des Preises und der Lieferbedingungen. Die Abrufe beziehen sich auf die tatsächlichen Bestellungen, die das Unternehmen tätigt, um den Bedarf an Aluminium zu decken, während die Angebotsentscheidung sich auf die Entscheidung des Unternehmens bezieht, ob es bei seinem aktuellen Lieferanten bleibt oder zu einem anderen Lieferanten wechselt, basierend auf der Preisentwicklung.
+\paragraph{Theoretische Grundlagen der Zeitreihenprognose}
+Folgende Hürden in der Finanzmathematik sind wichtig zu verstehen, um die Preisprognose zu verstehen:
+\begin{itemize}
+    \item \emph{Stationarität}: Eine Zeitreihe ist stationär, wenn ihre statistischen Eigenschaften (Mittelwert, Varianz) über die Zeit konstant bleiben. Rohpreise sind meist \emph{nicht-stationär}, da sie Trends (\emph{Drifts}) aufweisen. Dies erschwert das Lernen für KI-Modelle, da sich die Datenverteilung ständig verschiebt.
+    \item \emph{Autokorrelation}: Dieser Begriff beschreibt die Korrelation einer Zeitreihe mit sich selbst zu einem früheren Zeitpunkt. In "`normalen"' Märkten ist die Autokorrelation von Preisänderungen oft nahe Null, was bedeutet, dass der Preis von gestern kaum Information über die Änderung von heute liefert.
+    \item \emph{Random Walk (Zufallsbewegung)}: Wenn die beste Vorhersage für den Preis von morgen der Preis von heute ist (plus ein zufälliges Rauschen), spricht man von einem Random Walk. In diesem Fall ist es mathematisch unmöglich, den Markt auf Basis historischer Daten zu übertreffen.
+\end{itemize}
 
-\paragraph{Ist-Zustand}
-Typische Probleme im Ist-Zustand können darin bestehen, dass die Preisentwicklung schwer vorherzusagen ist, was zu Unsicherheiten bei der Planung und Entscheidungsfindung führt. Viele Preisentscheidungen basieren auf Erfahrung, Markbeobachtungen oder manuellen Einschätzungen, was zu suboptimalen Entscheidungen führen kann, da der Markt für Aluminium von vielen Faktoren beeinflusst wird, die schwer zu identifizieren sind. Darüber hinaus werden für ein Unternehmen zusätzliche Ressourcen benötigt, um die Preisentwicklung zu überwachen und zu analysieren, was zeitaufwendig sein kann.
-
-\paragraph{Anforderungen an eine Lösung}
-Die Anforderungen an eine Lösung für die Aluminiumpreisvorhersage umfassen die Fähigkeit, die Preisentwicklung genau vorherzusagen, um fundierte Entscheidungen treffen zu können. Eine solche Lösung sollte in der Lage sein, verschiedene Einflussfaktoren zu berücksichtigen, wie z.B. Angebot und Nachfrage, geopolitische Ereignisse, wirtschaftliche Entwicklungen. Darüber hinaus sollte die Lösung in der Lage sein, Muster in den historischen Preisdaten zu erkennen und diese Informationen zu nutzen, um zukünftige Preisbewegungen vorherzusagen. Diese Datengrundlage ist das entscheidende Element für eine solche Vorhersage, was in Kapitel \ref{sec:datenbasis_und_datenaufbereitung} näher erläutert wird. Eine zuverlässige Vorhersage der Aluminiumpreise kann Unternehmen dabei unterstützen, ihre Entscheidungen zu verbessern, Kosten zu sparen und somit ihre Wettbewerbsfähigkeit zu steigern.
-
-
-% \begin{itemize}
-%     \item Umfang: ca. 1--1,5 Seiten
-%     \item Beschreibung des realen Geschäftsprozesses
-%     \item Aluminiumpreisprozess:
-%     \begin{itemize}
-%         \item Preisentwicklung
-%         \item Rahmenvereinbarung und Abrufe
-%         \item Angebotsentscheidung
-%     \end{itemize}
-%     \item Typische Probleme im Ist-Zustand
-%     \item Anforderungen an eine Lösung
-% \end{itemize}
+\paragraph{Anforderungen an eine systemgestützte Lösung}
+Eine automatisierte Lösung zur Preisvorhersage muss mehrere Kriterien erfüllen:
+\begin{enumerate}
+    \item Robustheit gegenüber Rauschen: Finanzzeitreihen beruhen auf Wahrscheinlichkeit. Das System muss in der Lage sein, Trends von kurzfristigem Rauschen zu trennen.
+    \item Integration exogener Faktoren: Der Aluminiummarkt ist eng mit anderen Rohstoffmärkten (z. B. Kupfer als Ersatzmittel oder Energiepreisen) verknüpft. Diese gegenseitigen Abhängigkeiten müssen im Modell abgebildet werden.
+    \item Probabilistische Prognosen: Neben einer Punktvorhersage ist die Angabe von Konfidenzintervallen wichtig, um das Ausmaß der Marktunsicherheit zu kommunizieren. Ein Konfidenzintervall ist ein Bereich, der mit einer bestimmten Wahrscheinlichkeit den tatsächlichen Preis enthält. 
+    \item Transparenz: Für die Akzeptanz im Unternehmen müssen die Einflussfaktoren der Prognose nachvollziehbar sein.
+\end{enumerate}
+Diese Anforderungen bilden den Rahmen für die in den folgenden Kapiteln beschriebene methodische Umsetzung.

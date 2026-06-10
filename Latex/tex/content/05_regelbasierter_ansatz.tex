@@ -1,13 +1,21 @@
-\section{Regelbasierter Ansatz}
+\section{Regelbasierter Ansatz: Marktregime}
+\label{sec:regelbasiert}
+
+Obwohl das Gesamtsystem primär auf Methoden des maschinellen Lernens basiert, stellt die Identifikation von Marktregimen einen wichtigen regelbasierten Ansatz dar, um die Prognoseergebnisse zu kontextualisieren und die Entscheidungslogik zu verbessern. Marktregime sind Phasen, in denen sich die statistischen Eigenschaften der Zeitreihe (z. B. Volatilität, Trend) stark ändern. Die Erkennung dieser Regime ermöglicht es, die Vorhersagen der KI-Modelle entsprechend zu gewichten und betriebswirtschaftliche Entscheidungen gezielter zu steuern.
+
+\paragraph{Identifikation der Marktregime}
+Marktphasen werden mittels eines KMeans-Clustering-Verfahrens auf Basis historischer Daten identifiziert. Als Eingangsgrößen dienen die Merkmale Volatilität, Trend und Schiefe der Preisverteilung. Die Schiefe misst die Asymmetrie der Preisverteilung und kann auf Marktverzerrungen oder das Vorhandensein von Extremereignissen hinweisen. Das Clustering identifiziert drei Zustände, die als Grundlage für betriebswirtschaftliche Entscheidungsregeln dienen:
+
 \begin{itemize}
-    \item Umfang: ca. 2--3 Seiten
-    \item Definition der Regeln
-    \item Regeltypen:
-    \begin{itemize}
-        \item Trendregeln
-        \item Volatilitätsregeln
-        \item Schwellenregeln
-    \end{itemize}
-    \item Motivation jeder Regel
-    \item Beispiele für Regelentscheidungen
+    \item Regime 0 (Stabiler Bärenmarkt): Diese Phase ist durch eine geringe Volatilität und einen moderat negativen Preistrend gekennzeichnet. In diesem Marktzustand weisen die Daten eine hohe Autokorrelation auf, was bedeutet, dass vergangene Preisänderungen eine gewisse Vorhersagbarkeit für zukünftige Bewegungen bieten. Aus Sicht der Beschaffungslogik könnte dies eine Phase sein, in der kurzfristige Kaufentscheidungen bevorzugt werden, um von einem möglichen Preisrückgang zu profitieren.
+    \item Regime 1 (Stabiler Bullenmarkt): Dieses Regime weist eine geringe bis moderate Volatilität bei gleichzeitig positivem Preistrend auf. Aus Sicht der Beschaffungslogik stellt dies eine Phase dar, in der langfristige Kaufentscheidungen begünstigt werden.
+    \item Regime 2 (Hochvolatiler Ausbruch): Diese Phase ist durch eine sehr hohe Volatilität und extreme Preisausschläge (positive wie negative) definiert. Solche Zustände treten häufig bei geopolitischen Krisen oder fundamentalen Marktveränderungen auf und signalisieren ein erhöhtes ökonomisches Risiko. In diesem Regime ist die Vorhersagekraft der Modelle stark eingeschränkt, und es empfiehlt sich, die Unsicherheitsabschätzung stärker zu gewichten und vorsichtigere Beschaffungsentscheidungen zu treffen.
 \end{itemize}
+
+\paragraph{Integration in die Entscheidungslogik}
+Die Motivation für diesen hybriden Ansatz liegt in der unterschiedlichen Vorhersagbarkeit der Regime. Während statistische Modelle in stabilen Phasen (Regime 0 und 1) tendenziell verlässlichere Trends identifizieren, nimmt das Prognoserisiko in hochvolatilen Phasen (Regime 2) zu. Die Regeln dienen somit als Filter:
+\begin{itemize}
+    \item Regel A (Risikominimierung): Wird Regime 2 identifiziert, aktiviert das System einen Warnstatus. In diesem Fall wird die Konfidenz der KI-Punktprognose herabgestuft und die Gewichtung der probabilistischen Unsicherheitsschätzung erhöht.
+    \item Regel B (Trendbestätigung): In Regime 1 führt eine positive KI-Prognose zu einer Empfehlung für einen Kauf, da das statistische Ergebnis für eine Fortsetzung des Bullenmarktes in diesem Regime höher ist.
+\end{itemize}
+Durch diese Verknüpfung von Marktzuständen mit probabilistischen Vorhersagen wird die Robustheit des Gesamtsystems gegenüber Marktanomalien gesteigert.

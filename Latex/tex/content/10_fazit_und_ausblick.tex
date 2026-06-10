@@ -1,11 +1,18 @@
 \section{Fazit und Ausblick}
+\label{sec:fazit}
+
+Das Projekt untersucht die Möglichkeiten und Grenzen einer KI-gestützten Aluminiumpreisprognose für den industriellen Einkauf. Das entwickelte System liefert wertvolle Erkenntnisse für die Beschaffungsplanung und das Risikomanagement.
+
+\paragraph{Zusammenfassung der Erkenntnisse}
+Die Analyse bestätigt, dass Rohstoffmärkte wie der Aluminiummarkt durch hohe Volatilität und ein niedriges Signal-Rausch-Verhältnis gekennzeichnet sind. Das bedeutet, dass alle bekannten Informationen bereits in den aktuellen Preisen enthalten sind und zukünftige Preisänderungen primär durch unvorhersehbare globale Ereignisse ausgelöst werden. Aus diesem Grund erreicht das System eine Richtungsgenauigkeit von ca. $51\,\%$. Technisch betrachtet ist es somit kaum möglich, die Marktentwicklung allein auf Basis historischer Daten zu "`schlagen"'.
+
+\paragraph{Betriebswirtschaftlicher Nutzwert}
+Trotz der statistisch begrenzten Treffsicherheit bietet das System einen Mehrwert für den Einkaufsprozess:
 \begin{itemize}
-    \item Umfang: ca. 0,5--1 Seite
-    \item Zusammenfassung der Ergebnisse
-    \item Nutzen des Ansatzes
-    \item Mögliche Erweiterungen:
-    \begin{itemize}
-        \item weitere Daten
-        \item Regelverfeinerung
-    \end{itemize}
+    \item Objektivierung der Marktbeobachtung: Die KI verarbeitet über 1.100 Marktsignale (z. B. Bewegungen bei Gold, Kupfer und Aktienindizes) gleichzeitig. Dies liefert ein objektives Stimmungsbild, das über subjektive Einschätzungen hinausgeht.
+    \item Transparente Risikoabschätzung: Ein zentraler Vorteil ist die Berechnung von Wahrscheinlichkeitsbereichen (Konfidenzintervallen). Anstatt eine Kaufempfehlung zu versprechen, die unsicher und nicht genau ist, zeigt das System auf, in welchem Bereich sich der Preis mit hoher Wahrscheinlichkeit bewegen wird. Weite Intervalle signalisieren dem Einkäufer eine erhöhte Marktunruhe, was eine vorsichtigere Beschaffungsstrategie rechtfertigt.
+    \item Frühwarnung durch Marktphasen: Die automatische Erkennung von Marktzuständen (z. B. "`hochvolatiler Ausbruch"') dient als Frühwarnsystem für drohende Preissprünge oder Trendwenden.
 \end{itemize}
+
+\paragraph{Ausblick}
+Das System bildet ein Fundament, das in Zukunft durch weitere Datenquellen wie tagesaktuelle Nachrichtenanalysen oder Informationen zu globalen Lagerbeständen und Frachtraten erweitert werden kann. Langfristig ist die direkte Anbindung der Prognosen an automatisierte Bestellsysteme denkbar, um den optimalen Zeitpunkt für den Materialabruf mathematisch abzusichern. Zusammenfassend lässt sich festhalten, dass die KI nicht die Erfahrung des Einkäufers ersetzt, sondern ihm als Analysewerkzeug zur Seite steht, um fundiertere und datenbasierte Entscheidungen zu treffen.
