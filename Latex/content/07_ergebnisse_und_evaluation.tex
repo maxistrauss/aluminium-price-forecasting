@@ -3,18 +3,28 @@
 
 In diesem Kapitel wird die Leistungsfähigkeit der entwickelten Modelle auf dem finalen Testdatensatz (Januar 2022 bis August 2024) analysiert. Die Evaluation erfolgt sowohl für klassische Machine-Learning-Verfahren als auch für Deep-Learning-Architekturen.
 
-\paragraph{Definition der Evaluationsmetriken}
-Um die Vorhersagequalität objektiv zu bewerten, kommen verschiedene statistische Kennzahlen zum Einsatz, die unterschiedliche Aspekte des Modellverhaltens beleuchten:
-\begin{itemize}
-    \item Mean Absolute Error (MAE): Dieser Wert gibt den durchschnittlichen Betrag der Abweichung zwischen Vorhersage und Realität an. Er ist in der gleichen Einheit wie die Zielvariable (hier: Log-Returns) skaliert und lässt sich als "`durchschnittlicher Vorhersagefehler"' interpretieren. Ein kleinerer Wert beweist eine höhere Präzision.
-    \item Root Mean Squared Error (RMSE): Im Vergleich zum MAE werden Fehler hier vor der Mittelwertbildung quadriert. Dadurch werden größere Abweichungen (Ausreißer) stark gewichtet. Für die Praxis bedeutet ein hoher RMSE bei gleichzeitig niedrigem MAE, dass das Modell zwar oft nah am Ziel liegt, aber gelegentlich sehr starke Fehlprognosen abgibt.
-    \item Bestimmtheitsmaß ($R^2$): Diese Kennzahl vergleicht die Varianz der Modellvorhersagen mit der Varianz der tatsächlichen Daten. Ein $R^2$ von $1,0$ entspräche einer perfekten Vorhersage. Ein $R^2$ nahe $0$ bedeutet, dass das Modell nicht besser ist als die einfache Vorhersage des historischen Mittelwertes. Negative Werte indizieren, dass das Modell schlechter performt als dieser Mittelwert.
-    \item Directional Accuracy (Richtungsgenauigkeit): Für den praktischen Einsatz im Einkauf ist oft wichtiger zu wissen, ob der Preis steigt oder fällt, als den exakten Wert zu kennen. Diese Metrik berechnet den prozentualen Anteil der korrekt vorhergesagten Richtungsänderungen. Ein Wert von $50\,\%$ entspricht der Trefferquote eines reinen Zufallsprozesses, wie einem Münzwurf.
-    \item Coverage@95\%: Diese Kennzahl gibt an, wie viel Prozent der tatsächlichen Werte innerhalb des vom Modell berechneten 95\%-Konfidenzintervalls liegen. Bei einem perfekten Modell sollte dieser Wert exakt bei $95\,\%$ liegen.
-\end{itemize}
+\subsection{Definition der Evaluationsmetriken}
 
-\paragraph{Vergleich der Basismodelle}
-Abbildung \ref{fig:model_comp} zeigt die Performance verschiedener Standard-Modelle (wie XGBoost oder Random Forest) für den nächsten Handelstag ($h=1$).
+Um die Vorhersagequalität objektiv zu bewerten, kommen verschiedene statistische Kennzahlen zum Einsatz, die unterschiedliche Aspekte des Modellverhaltens beleuchten:
+
+
+\subsubsection{Mean Absolute Error (MAE)}
+Dieser Wert gibt den durchschnittlichen Betrag der Abweichung zwischen Vorhersage und Realität an. Er ist in der gleichen Einheit wie die Zielvariable (hier: Log-Returns) skaliert und lässt sich als "`durchschnittlicher Vorhersagefehler"' interpretieren. Ein kleinerer Wert beweist eine höhere Präzision.
+
+\subsubsection{Root Mean Squared Error (RMSE)} 
+Im Vergleich zum MAE werden Fehler hier vor der Mittelwertbildung quadriert. Dadurch werden größere Abweichungen (Ausreißer) stark gewichtet. Für die Praxis bedeutet ein hoher RMSE bei gleichzeitig niedrigem MAE, dass das Modell zwar oft nah am Ziel liegt, aber gelegentlich sehr starke Fehlprognosen abgibt.
+
+\subsubsection{Bestimmtheitsmaß ($R^2$)} 
+Diese Kennzahl vergleicht die Varianz der Modellvorhersagen mit der Varianz der tatsächlichen Daten. Ein $R^2$ von $1,0$ entspräche einer perfekten Vorhersage. Ein $R^2$ nahe $0$ bedeutet, dass das Modell nicht besser ist als die einfache Vorhersage des historischen Mittelwertes. Negative Werte indizieren, dass das Modell schlechter performt als dieser Mittelwert.
+
+\subsubsection{Directional Accuracy (Richtungsgenauigkeit)} 
+Für den praktischen Einsatz im Einkauf ist oft wichtiger zu wissen, ob der Preis steigt oder fällt, als den exakten Wert zu kennen. Diese Metrik berechnet den prozentualen Anteil der korrekt vorhergesagten Richtungsänderungen. Ein Wert von $50\,\%$ entspricht der Trefferquote eines reinen Zufallsprozesses, wie einem Münzwurf.
+
+\subsubsection{Coverage@95\%} 
+Diese Kennzahl gibt an, wie viel Prozent der tatsächlichen Werte innerhalb des vom Modell berechneten 95\%-Konfidenzintervalls liegen. Bei einem perfekten Modell sollte dieser Wert exakt bei $95\,\%$ liegen.
+
+\subsection{Vergleich der Basismodelle}
+Abbildung \ref{fig:model_comp} zeigt die Performance verschiedener Modelle und Baselines für den nächsten Handelstag ($h=1$).
 
 \begin{figure}[hpt!]
 \centering
@@ -25,7 +35,7 @@ Abbildung \ref{fig:model_comp} zeigt die Performance verschiedener Standard-Mode
 
 Die grafische Auswertung verdeutlicht, dass keines der Basismodelle eine Richtungsgenauigkeit erzielt, die deutlich über dem Zufallsniveau liegt. Technisch lässt sich dies darauf zurückführen, dass die Modelle Schwierigkeiten haben, die Zusammenhänge des Rohstoffmarktes allein aus den historischen Features zu extrahieren.
 
-\paragraph{Deep-Learning-Modelle und multi-temporale Analyse}
+\subsection{Deep-Learning-Modelle und multi-temporale Analyse}
 In der tiefergehenden Analyse der Deep-Learning-Verfahren (LSTM, GRU, Transformer) werden die Vorhersagen der logarithmischen Renditen betrachtet. Abbildung \ref{fig:daily_price_change} visualisiert die vorhergesagte Preisänderungen im Zeitverlauf.
 
 \begin{figure}[hpt!]
@@ -46,7 +56,7 @@ Wird diese Vorhersage auf das absolute Preisniveau in USD transformiert, ergibt 
 
 Dieses Verhalten zeigt darauf hin, dass das Modell zwar die aktuelle Preisregion korrekt identifiziert, aber keine echten Signale für die unmittelbare Zukunft generiert. Für den Anwender bedeutet dies, dass das Modell den aktuellen Status einfach nur repliziert.
 
-\paragraph{Langzeit-Prognose im Walk-Forward-Modus}
+\subsection{Langzeit-Prognose im Walk-Forward-Modus}
 Um die Stabilität über längere Zeiträume zu prüfen, wird ein Walk-Forward-Test durchgeführt, bei dem das Modell mehrere Tage in die Zukunft blickt, ohne zwischendurch neue Daten zu erhalten. Abbildung \ref{fig:price_pred} zeigt das Ergebnis für eine mehrwöchige Prognose.
 
 \begin{figure}[hpt!]
@@ -56,7 +66,7 @@ Um die Stabilität über längere Zeiträume zu prüfen, wird ein Walk-Forward-T
     \label{fig:price_pred}
 \end{figure}
 
-\paragraph{Zusammenfassende Evaluation}
+\subsection{Zusammenfassende Evaluation}
 In Tabelle \ref{tab:results_lstm} sind die finalen Kennzahlen des Multi-Task-LSTMs zusammengefasst. Diese Tabelle dient als Entscheidungsgrundlage für die Bewertung des Systems.
 
 \begin{table}[h]

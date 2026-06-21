@@ -3,11 +3,11 @@
 
 In industriellen Anwendungsszenarien ist die Nachvollziehbarkeit von Modellentscheidungen (\emph{Explainable AI}) eine Voraussetzung für die letztendliche Nutzung. In diesem Projekt wird die Merkmalsbedeutung analysiert, um die Einflussfaktoren auf die Preisprognose zu identifizieren.
 
-\paragraph{Methodik der Merkmalsbewertung}
+\subsection{Methodik der Merkmalsbewertung}
 Zur Bestimmung der Merkmalsrelevanz wird ein ExtraTreesRegressor auf dem Gesamtsatz der 1.100 generierten Features trainiert. Das Verfahren berechnet die Wichtigkeit eines Merkmals basierend auf der Reduktion des mittleren quadratischen Fehlers, die durch die Aufteilung der Daten an diesem Merkmal erreicht wird. Die Merkmale werden anschließend nach ihrer Bedeutung sortiert, um die Top-Treiber der Prognose zu identifizieren. Diese Analyse ermöglicht es, die Vorhersagen nicht nur als Black-Box-Ergebnisse zu interpretieren, sondern auch die zugrundeliegenden Marktdynamiken zu verstehen, die das Modell für seine Entscheidungen heranzieht.
 
 
-\paragraph{Analyse der wichtigsten Einflussfaktoren}
+\subsection{Analyse der wichtigsten Einflussfaktoren}
 Die Auswertung zeigt, dass insbesondere volumen- und volatilitätsbasierte Merkmale eine hohe Vorhersagekraft besitzen. Die Top-Merkmale lassen sich wie folgt kategorisieren:
 \begin{itemize}
     \item Handelsvolumen (Aluminium): Merkmale wie \texttt{ALU\_Vol.\_rolling\_3\_std} und \texttt{ALU\_Vol.\_lag\_2} weisen auf eine starke Verbindung zwischen Marktliquidität und Preisänderungen hin.
@@ -15,5 +15,5 @@ Die Auswertung zeigt, dass insbesondere volumen- und volatilitätsbasierte Merkm
     \item Gleitende Volatilität: Die geschätzten GARCH-Proxies sind ebenfalls unter den Top-Merkmalen vertreten, was die Bedeutung von Volatilitätsänderungen als Frühindikator für Preisbewegungen unterstreicht.
 \end{itemize}
 
-\paragraph{Relevanz für den Geschäftsprozess}
+\subsection{Relevanz für den Geschäftsprozess}
 Für die Entscheidungsunterstützung im Einkauf bedeutet diese Transparenz, dass Prognosen nicht als isolierte Werte interpretiert werden können. Wenn das Modell eine Preissteigerung vorhersagt, die primär auf einem Anstieg des Handelsvolumens basiert, könnte dies auf eine erhöhte Marktaktivität hindeuten, die durch Nachrichten oder spekulative Bewegungen getrieben wird. In diesem Fall könnte die Einkaufsabteilung proaktiv auf diese Signale reagieren, indem sie beispielsweise die Beschaffungsstrategie anpasst oder zusätzliche Marktinformationen einholt, um die Prognose zu validieren.
