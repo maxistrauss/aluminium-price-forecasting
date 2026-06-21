@@ -98,7 +98,7 @@ isbn=false                % Keine Ausbage der ISBN
 }
 
 % Bibliothek der Quellen
-\addbibresource{Latex/tex/biblatex.bib}
+\addbibresource{biblatex.bib}
 
 \makeatletter
 \def\input@path{{Latex/}{Latex/tex/}{tex/}}
@@ -153,7 +153,7 @@ isbn=false                % Keine Ausbage der ISBN
 %\addtokomafont{section}{\bfseries}
 
 \input{tex/Eigene_Methoden}
-
+\setcounter{tocdepth}{1} 
 \begin{document}
 % --------------------------------------------------------------------------------
 % Globale Formateinstellungen
@@ -190,7 +190,7 @@ isbn=false                % Keine Ausbage der ISBN
 \singlespacing %Zeilenabstand reduzieren
 \setcounter{section}{0}
 \setcounter{page}{1}
-\addcontentsline{toc}{section}{Inhaltsverzeichnis} %Hinzufügen des Inhaltsverzeichnises selbst
+%\addcontentsline{toc}{section}{Inhaltsverzeichnis} %Hinzufügen des Inhaltsverzeichnises selbst
 
 \tableofcontents %Ausgabe des Inhaltsverzeichnisses
 \pagebreak
@@ -210,28 +210,17 @@ isbn=false                % Keine Ausbage der ISBN
 
 %\input{tex/example.tex}
 
-\input{tex/content/01_einleitung.tex}
-\pagebreak
-\input{tex/content/02_fachlicher_hintergrund_und_problemstellung.tex}
-\pagebreak
-\input{tex/content/03_datenbasis_und_datenaufbereitung.tex}
-\pagebreak
-\input{tex/content/04_systemarchitektur_und_methodik.tex}
-\pagebreak
-\input{tex/content/05_regelbasierter_ansatz.tex}
-\pagebreak
-\input{tex/content/06_ki_komponente_und_hybrid_ansatz.tex}
-\pagebreak
-\input{tex/content/07_ergebnisse_und_evaluation.tex}
-\pagebreak
-\input{tex/content/08_explainability_und_entscheidungsnachvollziehbarkeit.tex}
-\pagebreak
-\input{tex/content/09_diskussion_und_reflexion.tex}
-\pagebreak
-\input{tex/content/10_fazit_und_ausblick.tex}
-\pagebreak
-\input{tex/content/11_anhang.tex}
-\pagebreak
+\input{content/01_einleitung.tex}
+\input{content/02_fachlicher_hintergrund_und_problemstellung.tex}
+\input{content/03_datenbasis_und_datenaufbereitung.tex}
+\input{content/04_systemarchitektur_und_methodik.tex}
+%\input{content/05_regelbasierter_ansatz.tex}
+\input{content/06_ki_komponente_und_hybrid_ansatz.tex}
+\input{content/07_ergebnisse_und_evaluation.tex}
+\input{content/08_explainability_und_entscheidungsnachvollziehbarkeit.tex}
+\input{content/09_diskussion_und_reflexion.tex}
+%\input{content/10_fazit_und_ausblick.tex}
+%\input{content/11_anhang.tex}
 
 \printbibliography[title={Literaturverzeichnis}]
 
