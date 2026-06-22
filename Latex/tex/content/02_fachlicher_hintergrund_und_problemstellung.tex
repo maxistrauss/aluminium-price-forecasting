@@ -1,0 +1,25 @@
+\section{Fachlicher Hintergrund und Problemstellung}
+\label{sec:fachlicher_hintergrund}
+
+In der industriellen Fertigung ist Aluminium aufgrund seiner spezifischen Eigenschaften (geringes Gewicht, hohe Korrosionsbeständigkeit) ein bevorzugter Werkstoff. Der Preis für Aluminium wird primär an internationalen Börsen wie der "`London Metal Exchange"' gebildet. Für Betriebe stellt der Aluminiumeinkauf einen großen Kostenblock dar, wobei die Preisvolatilität ein erhebliches Risiko bedeutet.
+
+\paragraph{Der industrielle Beschaffungsprozess}
+Der Beschaffungsprozess für Aluminium in großen Unternehmen ist meist durch Rahmenvereinbarungen mit Lieferanten gekennzeichnet. Diese Verträge legen Liefermengen für einen längeren Zeitraum fest, wobei der tatsächliche Preis zum Zeitpunkt des Abrufs oft an den aktuellen Börsenpreis verbunden ist. Die Einkaufsabteilung steht immer vor der Entscheidung, zu welchem Zeitpunkt Teilmengen gekauft werden sollen. Eine frühzeitige Beschaffung bei vorhersehbarer Preissteigerungen sichert günstigere Preise, erhöht jedoch die Kapitalbindungskosten und das Lagerrisiko. Umgekehrt kann ein später Kauf bei fallenden Preisen Kosten einsparen, birgt jedoch die Gefahr von Versorgungsengpässen oder unvorhergesehenen Preissprüngen.
+
+\paragraph{Theoretische Grundlagen der Zeitreihenprognose}
+Folgende Hürden in der Finanzmathematik sind wichtig zu verstehen, um die Preisprognose zu verstehen:
+\begin{itemize}
+    \item \emph{Stationarität}: Eine Zeitreihe ist stationär, wenn ihre statistischen Eigenschaften (Mittelwert, Varianz) über die Zeit konstant bleiben. Rohpreise sind meist \emph{nicht-stationär}, da sie Trends (\emph{Drifts}) aufweisen. Dies erschwert das Lernen für KI-Modelle, da sich die Datenverteilung ständig verschiebt.
+    \item \emph{Autokorrelation}: Dieser Begriff beschreibt die Korrelation einer Zeitreihe mit sich selbst zu einem früheren Zeitpunkt. In "`normalen"' Märkten ist die Autokorrelation von Preisänderungen oft nahe Null, was bedeutet, dass der Preis von gestern kaum Information über die Änderung von heute liefert.
+    \item \emph{Random Walk (Zufallsbewegung)}: Wenn die beste Vorhersage für den Preis von morgen der Preis von heute ist (plus ein zufälliges Rauschen), spricht man von einem Random Walk. In diesem Fall ist es mathematisch unmöglich, den Markt auf Basis historischer Daten zu übertreffen.
+\end{itemize}
+
+\paragraph{Anforderungen an eine systemgestützte Lösung}
+Eine automatisierte Lösung zur Preisvorhersage muss mehrere Kriterien erfüllen:
+\begin{enumerate}
+    \item Robustheit gegenüber Rauschen: Finanzzeitreihen beruhen auf Wahrscheinlichkeit. Das System muss in der Lage sein, Trends von kurzfristigem Rauschen zu trennen.
+    \item Integration exogener Faktoren: Der Aluminiummarkt ist eng mit anderen Rohstoffmärkten (z. B. Kupfer als Ersatzmittel oder Energiepreisen) verknüpft. Diese gegenseitigen Abhängigkeiten müssen im Modell abgebildet werden.
+    \item Probabilistische Prognosen: Neben einer Punktvorhersage ist die Angabe von Konfidenzintervallen wichtig, um das Ausmaß der Marktunsicherheit zu kommunizieren. Ein Konfidenzintervall ist ein Bereich, der mit einer bestimmten Wahrscheinlichkeit den tatsächlichen Preis enthält. 
+    \item Transparenz: Für die Akzeptanz im Unternehmen müssen die Einflussfaktoren der Prognose nachvollziehbar sein.
+\end{enumerate}
+Diese Anforderungen bilden den Rahmen für die in den folgenden Kapiteln beschriebene methodische Umsetzung.
