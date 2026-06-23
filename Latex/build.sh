@@ -1,1 +1,1 @@
-pdflatex Vorlage.tex
+latexmk Vorlage.tex -pdf
