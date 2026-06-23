@@ -1,53 +1,54 @@
 \section{Verwendete Modelle}
 
-TODO: systemarchitektur zu verwendet modell überleitung
+Die Architektur der Datenpipeline erlaubt es verschieden Modelle zu testen.
+Es werden sowohl Baseline Modelle als auch komplexere Modelle trainiert.
+Die Baseline Modelle dienen als Vergleich um die Performance der anderen Modelle besser einschätzen zu können.
 
 \subsubsection{Naive Baseline}
 
-Die Naive Baseline liefter als Vorhersage den Wert der Letzten Eingabe zurück.
+Die Naive Baseline liefter als Vorhersage den Wert der Letzten Eingabe zurück\cite{Baseline2024}.
 
 \subsubsection{Mean Baseline}
 
-Eine Baseline wird in der Auswertung eines Modells verwendet um zu vergelichen ob das trainierte Modell bessere Performance liefert.
-Die Mean Baseline liefert wie der Name impliziert den Mittelwert der Trainingsdaten als Vorhersage.
+Die Mean Baseline liefert wie der Name impliziert den Mittelwert der Trainingsdaten als Vorhersage \cite{Baseline2024}.
 
 \subsubsection{Lineare Regression}
 
 Die Lineare Regression ist das standart Verfahren um Lineare Zusammenhänge in Daten Vorherzusagen.
-Die Daten Werden durch eine Gerade angenähert und es können neue Daten aufgrund dieser Gerade vorhergesagt werden.
+Die Daten Werden durch eine Gerade angenähert und es können neue Daten aufgrund dieser Gerade vorhergesagt werden \cite{Linear2026}.
 
 \subsubsection{Ridge Regression}
 
-Die Ridge Regression ist eine Erweiterung der Linearen Regression um L2-Regularisierung, die die größe der Koeffizenten minimieren und so overfitting verhindern soll.
+Die Ridge Regression ist eine Erweiterung der Linearen Regression um L2-Regularisierung, die die größe der Koeffizenten minimieren und so overfitting verhindern soll \cite{Ridge2026}.
 
 
 \subsubsection{XGB Regressor}
 
 XGB (Extreme Gradient Boosting) ist ein Regressionsmodell das Vorhersagen mit einer Folge von Entscheidungsbäumen trifft.
-Durch die Folge an Bäumen können sowohl nicht lineare Zusammenhänge als auch Zeitreihen modelliert werden.
+Durch die Folge an Bäumen können sowohl nicht lineare Zusammenhänge als auch Zeitreihen modelliert werden \cite{XGBoost}.
 
 
 \subsubsection{LGMB Regressor}
 
 LGMB (Light Gradient Boosting Machine) ist eine auf Geschwindigkeit optimierte Version von XGB.
-Es ist dabei bei großen Datenmengen effizenter als XGB.
+Es ist dabei bei großen Datenmengen effizenter als XGB \cite{LightgbmLGBMRegressor}.
 
 \subsubsection{SVR}
 
 SVR (Support Vector Regressor) ist eine Variante der SVM (Support Vector Machine) für Regressionsmodelle.
-Das Verfahren ist robust gegen overfitting und kann komplexe Muster erfassen, weswegen es häufig für die Prognose von Werten verwendet wird.
+Das Verfahren ist robust gegen overfitting und kann komplexe Muster erfassen, weswegen es häufig für die Prognose von Werten verwendet wird \cite{SVR}.
 
 \subsubsection{KNN}
 
 KNN (K-Nearest Neighbors Regressor) liefert Vorhersagen aufgrund ähnlich Punkte in den Trainingsdaten 
 Dazu Müssen erst die Vergleichswerte (Lag Werte) aus den Trainingsdaten erzeugt werden.
-Für Vorhersagen werden dann diese Werte überprüft und aus den ähnlichsten werten der mittelwert gebildet.
+Für Vorhersagen werden dann diese Werte überprüft und aus den ähnlichsten werten der mittelwert gebildet \cite{Knearest2026}.
 
 \subsubsection{LSTM}
 
 Ein LSTM-Netzwerk (Long Short-Term Memory) ist ein von Sepp Hochreiter und Jürgen Schmidhuber im Jahr 1997 entwickeltes Verfahren \cite{lstm}, das im Gegensatz zu anderen rekurrenten neuronalen Netzwerken ein Kurzzeitgedächtnis modellieren kann. Dies geschieht durch drei Arten von Toren: das Eingangstor, das Vergessens- bzw. Merktor sowie das Ausgangstor. Diese ermöglichen bei der Rückführung des Fehlersignals eine effektivere Aktualisierung der Gewichte.
 
-Aufgrund seiner Speicherfähigkeit eignet sich ein LSTM-Netzwerk besonders gut zum Lernen von Zeitreihen und wird daher in dieser Arbeit als zentrales Modell zur Vorhersage eingesetzt.
+Aufgrund seiner Speicherfähigkeit eignet sich ein LSTM-Netzwerk besonders gut zum Lernen von Zeitreihen und wird daher in dieser Arbeit als zentrales Modell zur Vorhersage eingesetzt \cite{Long2026}.
 
 
 

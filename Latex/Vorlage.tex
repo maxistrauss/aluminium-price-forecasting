@@ -98,7 +98,7 @@ isbn=false                % Keine Ausbage der ISBN
 }
 
 % Bibliothek der Quellen
-\addbibresource{biblatex.bib}
+\addbibresource{FPP.bib}
 
 \makeatletter
 \def\input@path{{Latex/}{Latex/tex/}{tex/}}
@@ -154,6 +154,10 @@ isbn=false                % Keine Ausbage der ISBN
 
 \input{tex/Eigene_Methoden}
 \setcounter{tocdepth}{1} 
+
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
 \begin{document}
 % --------------------------------------------------------------------------------
 % Globale Formateinstellungen
