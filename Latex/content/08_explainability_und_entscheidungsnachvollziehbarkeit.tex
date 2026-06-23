@@ -1,19 +1,30 @@
 \section{Explainability und Entscheidungsnachvollziehbarkeit}
 \label{sec:explainability}
 
-In industriellen Anwendungsszenarien ist die Nachvollziehbarkeit von Modellentscheidungen (\emph{Explainable AI}) eine Voraussetzung für die letztendliche Nutzung. In diesem Projekt wird die Merkmalsbedeutung analysiert, um die Einflussfaktoren auf die Preisprognose zu identifizieren.
+In industriellen Anwendungsszenarien ist die Nachvollziehbarkeit von Modellentscheidungen (\emph{Explainable AI}) eine Voraussetzung für die letztendliche Nutzung.
+In diesem Projekt wird die Merkmalsbedeutung analysiert, um die Einflussfaktoren auf die Preisprognose zu identifizieren.
 
 \subsection{Methodik der Merkmalsbewertung}
-Zur Bestimmung der Merkmalsrelevanz wird ein ExtraTreesRegressor auf dem Gesamtsatz der 1.100 generierten Features trainiert. Das Verfahren berechnet die Wichtigkeit eines Merkmals basierend auf der Reduktion des mittleren quadratischen Fehlers, die durch die Aufteilung der Daten an diesem Merkmal erreicht wird. Die Merkmale werden anschließend nach ihrer Bedeutung sortiert, um die Top-Treiber der Prognose zu identifizieren. Diese Analyse ermöglicht es, die Vorhersagen nicht nur als Black-Box-Ergebnisse zu interpretieren, sondern auch die zugrundeliegenden Marktdynamiken zu verstehen, die das Modell für seine Entscheidungen heranzieht.
+Zur Bestimmung der Merkmalsrelevanz wird ein ExtraTreesRegressor auf dem Gesamtsatz der 1.100 generierten Features trainiert.
+Das Verfahren berechnet die Wichtigkeit eines Merkmals basierend auf der Reduktion des mittleren quadratischen Fehlers, die durch die Aufteilung der Daten an diesem Merkmal erreicht wird.
+Die Merkmale werden anschließend nach ihrer Bedeutung sortiert, um die Top-Treiber der Prognose zu identifizieren.
+Diese Analyse ermöglicht es, die Vorhersagen nicht nur als Black-Box-Ergebnisse zu interpretieren, sondern auch die zugrundeliegenden Marktdynamiken zu verstehen, die das Modell für seine Entscheidungen heranzieht.
 
 
 \subsection{Analyse der wichtigsten Einflussfaktoren}
 Die Auswertung zeigt, dass insbesondere volumen- und volatilitätsbasierte Merkmale eine hohe Vorhersagekraft besitzen. Die Top-Merkmale lassen sich wie folgt kategorisieren:
-\begin{itemize}
-    \item Handelsvolumen (Aluminium): Merkmale wie \texttt{ALU\_Vol.\_rolling\_3\_std} und \texttt{ALU\_Vol.\_lag\_2} weisen auf eine starke Verbindung zwischen Marktliquidität und Preisänderungen hin.
-    \item Cross-Asset-Effekte (Edelmetalle): Das Merkmal \texttt{GOLD\_Vol.\_lag\_7} erscheint in der Liste der wichtigsten Prädiktoren. Dies indiziert, dass Handelsaktivitäten im Goldmarkt zeitversetzte Signale für den Industriemetallmarkt liefern, was auf marktübergreifende Verbindungen hindeutet.
-    \item Gleitende Volatilität: Die geschätzten GARCH-Proxies sind ebenfalls unter den Top-Merkmalen vertreten, was die Bedeutung von Volatilitätsänderungen als Frühindikator für Preisbewegungen unterstreicht.
-\end{itemize}
+
+\subsubsection{Handelsvolumen (Aluminium)}
+Merkmale wie \texttt{ALU\_Vol.\_rolling\_3\_std} und \texttt{ALU\_Vol.\_lag\_2} weisen auf eine starke Verbindung zwischen Marktliquidität und Preisänderungen hin.
+
+\subsubsection{Cross-Asset-Effekte (Edelmetalle)}
+Das Merkmal \texttt{GOLD\_Vol.\_lag\_7} erscheint in der Liste der wichtigsten Prädiktoren.
+Dies indiziert, dass Handelsaktivitäten im Goldmarkt zeitversetzte Signale für den Industriemetallmarkt liefern, was auf marktübergreifende Verbindungen hindeutet.
+
+\subsubsection{Gleitende Volatilität}
+Die geschätzten GARCH-Proxies sind ebenfalls unter den Top-Merkmalen vertreten, was die Bedeutung von Volatilitätsänderungen als Frühindikator für Preisbewegungen unterstreicht.
 
 \subsection{Relevanz für den Geschäftsprozess}
-Für die Entscheidungsunterstützung im Einkauf bedeutet diese Transparenz, dass Prognosen nicht als isolierte Werte interpretiert werden können. Wenn das Modell eine Preissteigerung vorhersagt, die primär auf einem Anstieg des Handelsvolumens basiert, könnte dies auf eine erhöhte Marktaktivität hindeuten, die durch Nachrichten oder spekulative Bewegungen getrieben wird. In diesem Fall könnte die Einkaufsabteilung proaktiv auf diese Signale reagieren, indem sie beispielsweise die Beschaffungsstrategie anpasst oder zusätzliche Marktinformationen einholt, um die Prognose zu validieren.
+Für die Entscheidungsunterstützung im Einkauf bedeutet diese Transparenz, dass Prognosen nicht als isolierte Werte interpretiert werden können.
+Wenn das Modell eine Preissteigerung vorhersagt, die primär auf einem Anstieg des Handelsvolumens basiert, könnte dies auf eine erhöhte Marktaktivität hindeuten, die durch Nachrichten oder spekulative Bewegungen getrieben wird.
+In diesem Fall könnte die Einkaufsabteilung proaktiv auf diese Signale reagieren, indem sie beispielsweise die Beschaffungsstrategie anpasst oder zusätzliche Marktinformationen einholt, um die Prognose zu validieren.

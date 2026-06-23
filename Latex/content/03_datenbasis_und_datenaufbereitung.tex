@@ -1,47 +1,75 @@
 \section{Datenbasis und Datenaufbereitung}
 \label{sec:datenbasis_und_datenaufbereitung}
 
-Die Entwicklung der Vorhersagemodelle setzt eine Aufbereitung der Datengrundlage voraus. In diesem Kapitel werden die Herkunft der Daten, die angewandten Schritte zur Bereinigung sowie die Transformation der Rohdaten in ein für die Modellierung geeignetes Format beschrieben. Ziel ist es, eine robuste und konsistente Datenbasis zu schaffen, die die Anforderungen der nachfolgenden Analysen erfüllt.
+Die Entwicklung der Vorhersagemodelle setzt eine Aufbereitung der Datengrundlage voraus.
+In diesem Kapitel werden die Herkunft der Daten, die angewandten Schritte zur Bereinigung sowie die Transformation der Rohdaten in ein für die Modellierung geeignetes Format beschrieben.
+Ziel ist es, eine robuste und konsistente Datenbasis zu schaffen, die die Anforderungen der nachfolgenden Analysen erfüllt.
 
 \subsection{Datenquellen und Umfang}
 
-Die Datengrundlage umfasst historische tägliche Schlusskurse für Aluminium sowie sechs weitere Industriemetalle (Kupfer, Gold, Blei, Nickel, Silber und Zink). Diese externen Variablen dienen dazu, marktübergreifende Abhängigkeiten zu erfassen. Die Daten stammen aus der öffentlich zugänglichen Datenbank von Naveen Sharma \cite{naveennas_metal_price_prediction_2024} und decken den Zeitraum vom 01. Januar 2014 bis zum 29. August 2024 ab. Um makroökonomische Einflüsse abzubilden, wird zusätzlich der S\&P 500 Index von Investing.com \cite{investing_sp500_historical_2026} integriert. Jeder Datensatz enthält die Börsenparameter Eröffnungspreis (Open), Tageshoch (High), Tagestief (Low), Schlusskurs (Close) sowie das Handelsvolumen (Volume).
+Die Datengrundlage umfasst historische tägliche Schlusskurse für Aluminium sowie sechs weitere Industriemetalle (Kupfer, Gold, Blei, Nickel, Silber und Zink).
+Diese externen Variablen dienen dazu, marktübergreifende Abhängigkeiten zu erfassen.
+Die Daten stammen aus der öffentlich zugänglichen Datenbank von Naveen Sharma \cite{naveennas_metal_price_prediction_2024} und decken den Zeitraum vom 01. Januar 2014 bis zum 29. August 2024 ab.
+Um makroökonomische Einflüsse abzubilden, wird zusätzlich der S\&P 500 Index von Investing.com \cite{investing_sp500_historical_2026} integriert.
+Jeder Datensatz enthält die Börsenparameter Eröffnungspreis (Open), Tageshoch (High), Tagestief (Low), Schlusskurs (Close) sowie das Handelsvolumen (Volume).
 
 \subsection{Datenreinigung und Vorverarbeitung}
 
 Finanzzeitreihen weisen oft Unregelmäßigkeiten auf, die vor der Modellierung bereinigt werden müssen.
 
-\begin{itemize}
-    \item Resampling und Interpolation: Da Börsendaten an Wochenenden und Feiertagen keine Einträge aufweisen, wird die Zeitreihe auf eine kontinuierliche tägliche Frequenz normiert. Fehlende Werte werden durch lineare Interpolation aufgefüllt. Hierbei wird angenommen, dass sich der Preis zwischen zwei bekannten Punkten stetig verändert. Dies ist für Deep-Learning-Modelle notwendig, da diese eine lückenlose zeitliche Abfolge der Daten erfordern.
-    \item Behandlung von Anomalien: Nullwerte im Bereich des Handelsvolumens werden als fehlende Daten (NaN) behandelt und ebenfalls interpoliert. Ein Volumen von Null bei global gehandelten Rohstoffen deutet auf Erfassungsfehler hin.
-    \item Duplikatsprüfung: Doppelte Zeilen in den Daten werden identifiziert und entfernt, um Fehler in den Berechnungen zu vermeiden.
-\end{itemize}
+\subsubsection{Resampling und Interpolation}
+Da Börsendaten an Wochenenden und Feiertagen keine Einträge aufweisen, wird die Zeitreihe auf eine kontinuierliche tägliche Frequenz normiert.
+Fehlende Werte werden durch lineare Interpolation aufgefüllt.
+Hierbei wird angenommen, dass sich der Preis zwischen zwei bekannten Punkten stetig verändert.
+Dies ist für Deep-Learning-Modelle notwendig, da diese eine lückenlose zeitliche Abfolge der Daten erfordern.
+
+\subsubsection{Behandlung von Anomalien}
+Nullwerte im Bereich des Handelsvolumens werden als fehlende Daten (NaN) behandelt und ebenfalls interpoliert.
+Ein Volumen von Null bei global gehandelten Rohstoffen deutet auf Erfassungsfehler hin.
+
+\subsubsection{Duplikatsprüfung}
+Doppelte Zeilen in den Daten werden identifiziert und entfernt, um Fehler in den Berechnungen zu vermeiden.
 
 \subsection{Transformation zu logarithmischen Renditen (Log-Returns)}
 
-Ein zentrales Konzept der Finanzmathematik ist die Transformation von Preisniveaus in Renditen. Preiszeitreihen sind in der Regel nicht-stationär, was statistische Tests Test oft fehlschlagen lässt. Um Stationarität zu erreichen, was eine Grundvoraussetzung für viele statistische Lernverfahren ist, werden logarithmische Renditen ($r_t$) berechnet:
+Ein zentrales Konzept der Finanzmathematik ist die Transformation von Preisniveaus in Renditen.
+Preiszeitreihen sind in der Regel nicht-stationär, was statistische Tests Test oft fehlschlagen lässt.
+Um Stationarität zu erreichen, was eine Grundvoraussetzung für viele statistische Lernverfahren ist, werden logarithmische Renditen ($r_t$) berechnet:
 
 \begin{equation}
     r_t = \ln(P_t) - \ln(P_{t-1})
 \end{equation}
 
-Wobei $P_t$ den Schlusskurs zum Zeitpunkt $t$ darstellt. Logarithmische Renditen bieten gegenüber einfachen prozentualen Änderungen den Vorteil der Zeit-Additivität, das bedeutet, dass die Summe der täglichen Log-Returns der Gesamtrendite des Zeitraums entspricht. Dies führt zu einer symmetrischeren Verteilung der Daten. Dies stabilisiert den Lernprozess neuronaler Netze, da das Modell nicht ständig neue tatsäcliche Preise (z. B. 1500 USD vs. 3000 USD) verarbeiten muss, sondern sich auf relative Änderungen konzentriert.
+Wobei $P_t$ den Schlusskurs zum Zeitpunkt $t$ darstellt.
+Logarithmische Renditen bieten gegenüber einfachen prozentualen Änderungen den Vorteil der Zeit-Additivität, das bedeutet, dass die Summe der täglichen Log-Returns der Gesamtrendite des Zeitraums entspricht.
+Dies führt zu einer symmetrischeren Verteilung der Daten.
+Dies stabilisiert den Lernprozess neuronaler Netze, da das Modell nicht ständig neue tatsäcliche Preise (z. B. 1500 USD vs. 3000 USD) verarbeiten muss, sondern sich auf relative Änderungen konzentriert.
 
 \subsection{Analytische Voruntersuchungen}
 
 Um die Korrektheit der Daten für maschinelle Lernverfahren zu validieren, werden statistische Prüfverfahren eingesetzt:
 
-\begin{itemize}
-    \item Stationaritätsprüfung: Der \emph{ADF-Test} wird verwendet, um sicherzustellen, dass die Zeitreihe der Log-Returns keine Einheitswurzel mehr besitzt. Das bedeutet dass die Daten keine Trends mehr aufweisen und die Varianz über die Zeit konstant ist. Die Einheitswurzel ist ein Indikator für Nicht-Stationarität. Erst nach dieser Bestätigung kann davon ausgegangen werden, dass das Modell stabile Gewichte lernt.
-    \item Autokorrelationsanalyse: Mittels der \emph{Partial Autocorrelation Function} wird ermittelt, wie viele Tage in der Vergangenheit tatsächlich einen Einfluss auf den heutigen Wert haben. Diese Analyse liefert die Entscheidung für die Wahl der Lags (z. B. 14 Tage) und die Sequenzlänge (21 Tage).
-\end{itemize}
+\subsubsection{Stationaritätsprüfung}
+Der \emph{ADF-Test} wird verwendet, um sicherzustellen, dass die Zeitreihe der Log-Returns keine Einheitswurzel mehr besitzt.
+Das bedeutet dass die Daten keine Trends mehr aufweisen und die Varianz über die Zeit konstant ist.
+Die Einheitswurzel ist ein Indikator für Nicht-Stationarität. Erst nach dieser Bestätigung kann davon ausgegangen werden, dass das Modell stabile Gewichte lernt.
+
+\subsubsection{Autokorrelationsanalyse}
+Mittels der \emph{Partial Autocorrelation Function} wird ermittelt, wie viele Tage in der Vergangenheit tatsächlich einen Einfluss auf den heutigen Wert haben.
+Diese Analyse liefert die Entscheidung für die Wahl der Lags (z. B. 14 Tage) und die Sequenzlänge (21 Tage).
 
 \subsection{Chronologische Datenaufteilung}
 
 Die Aufteilung der Daten in Trainings-, Validierungs- und Testmengen erfolgt chronologisch, um einen \emph{Look-Ahead-Bias} zu verhindern. Der Look-Ahead-Bias tritt auf, wenn Informationen aus der Zukunft in das Training einbezogen werden, was zu unrealistisch guten Ergebnissen führt, die in der Praxis nicht reproduzierbar sind. Die Aufteilung erfolgt wie folgt:
 
-\begin{itemize}
-    \item Training (2014--2019): In dieser Phase lernt das Modell die grundlegenden Muster und Zusammenhänge in den Daten kennen. 
-    \item Validierung (2020--2021): Dieser Zeitraum dient der Optimierung der Hyperparameter und der Steuerung des \emph{Early-Stopping-Prozesses} zur Vermeidung von \emph{Overfitting}. Early Stopping ist eine Technik, bei der das Training abgebrochen wird, sobald die Leistung auf der Validierungsmenge sich nicht mehr verbessert. Dies verhindert, dass das Modell zu stark an die Trainingsdaten angepasst wird und somit seine Generalisierungsfähigkeit verliert, was Overfitting genannt wird.
-    \item Test (2022--2024): Die Evaluation findet auf Daten statt, die das Modell während des gesamten Prozesses nicht gesehen hat. Dies simuliert die Generalisierungsfähigkeit in der realen Anwendung.
-\end{itemize}
+\subsubsection{Training (2014--2019)}
+In dieser Phase lernt das Modell die grundlegenden Muster und Zusammenhänge in den Daten kennen. 
+
+\subsubsection{Validierung (2020--2021)}
+Dieser Zeitraum dient der Optimierung der Hyperparameter und der Steuerung des \emph{Early-Stopping-Prozesses} zur Vermeidung von \emph{Overfitting}.
+Early Stopping ist eine Technik, bei der das Training abgebrochen wird, sobald die Leistung auf der Validierungsmenge sich nicht mehr verbessert.
+Dies verhindert, dass das Modell zu stark an die Trainingsdaten angepasst wird und somit seine Generalisierungsfähigkeit verliert, was Overfitting genannt wird.
+
+\subsubsection{Test (2022--2024)}
+Die Evaluation findet auf Daten statt, die das Modell während des gesamten Prozesses nicht gesehen hat.
+Dies simuliert die Generalisierungsfähigkeit in der realen Anwendung.
