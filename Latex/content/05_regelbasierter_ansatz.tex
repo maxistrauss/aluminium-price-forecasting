@@ -1,44 +1,43 @@
-\section{Regelbasierter Ansatz: Marktregime}
-\label{sec:regelbasiert}
-
-TODO: Philipp schreibt was dazu
-Regimewechsel covid erwähnen fliest ein in modelle kann probleme geben bzgl auswertung
-
-
+\section{Marktregime}
 Obwohl das Gesamtsystem primär auf Methoden des maschinellen Lernens basiert, stellt die Identifikation von Marktregimen einen wichtigen regelbasierten Ansatz dar, um die Prognoseergebnisse zu kontextualisieren und die Entscheidungslogik zu verbessern.
 Marktregime sind Phasen, in denen sich die statistischen Eigenschaften der Zeitreihe (z. B. Volatilität, Trend) stark ändern.
 Die Erkennung dieser Regime ermöglicht es, die Vorhersagen der KI-Modelle entsprechend zu gewichten und betriebswirtschaftliche Entscheidungen gezielter zu steuern.
 
 \subsection{Identifikation der Marktregime}
-Marktphasen werden mittels eines KMeans-Clustering-Verfahrens auf Basis historischer Daten identifiziert.
-Als Eingangsgrößen dienen die Merkmale Volatilität, Trend und Schiefe der Preisverteilung.
-Die Schiefe misst die Asymmetrie der Preisverteilung und kann auf Marktverzerrungen oder das Vorhandensein von Extremereignissen hinweisen.
-Das Clustering identifiziert drei Zustände, die als Grundlage für betriebswirtschaftliche Entscheidungsregeln dienen:
+Marktphasen werden mittels eines KMeans-Clustering-Verfahrens auf Basis historischer Aluminium-Preisdaten identifiziert.
+Als Eingangsgrößen dienen drei Merkmale: die EWMA-Volatilität (21-Tage-Fenster, als GARCH-Proxy), der rollende Preistrend (10-Tage-Fenster) sowie die rollende Schiefe der Preisverteilung.
+Das Clustering wird ausschließlich auf den Trainingsdaten (bis einschließlich 2019) gefittet und anschließend auf den gesamten Datensatz angewendet, um eine Datenleckage in Validierungs- und Testzeitraum zu vermeiden.
+Es werden drei Regime unterschieden, deren Schwerpunkte (\textit{Centroids}) in Tabelle~\ref{tab:regime_centroids} dargestellt sind.
 
-\subsubsection{Regime 0 (Stabiler Bärenmarkt)} 
-Diese Phase ist durch eine geringe Volatilität und einen moderat negativen Preistrend gekennzeichnet.
-In diesem Marktzustand weisen die Daten eine hohe Autokorrelation auf, was bedeutet, dass vergangene Preisänderungen eine gewisse Vorhersagbarkeit für zukünftige Bewegungen bieten.
-Aus Sicht der Beschaffungslogik könnte dies eine Phase sein, in der kurzfristige Kaufentscheidungen bevorzugt werden, um von einem möglichen Preisrückgang zu profitieren.
+\begin{table}[H]
+\centering
+\caption{Regime-Schwerpunkte (Trainingsdaten)}
+\label{tab:regime_centroids}
+\begin{tabular}{lrrrr}
+\toprule
+Regime & Volatilität & Trend & Schiefe & Beobachtungen \\
+\midrule
+0 & 0{,}0071 & $-$0{,}0015 & $-$0{,}40 & 1203 \\
+1 & 0{,}0084 & $+$0{,}0018 & $+$0{,}83 &  901 \\
+2 & 0{,}0195 & $+$0{,}0042 & $+$1{,}45 &   82 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
-\subsubsection{Regime 1 (Stabiler Bullenmarkt)}
-Dieses Regime weist eine geringe bis moderate Volatilität bei gleichzeitig positivem Preistrend auf.
-Aus Sicht der Beschaffungslogik stellt dies eine Phase dar, in der langfristige Kaufentscheidungen begünstigt werden.
+\subsubsection{Regime 0 (Stabiler Bärenmarkt)}
+Dieses Regime ist durch die geringste Volatilität und einen leicht negativen Preistrend gekennzeichnet.
+Die negative Schiefe deutet auf eine linksschiefe Preisverteilung hin, d.\,h.\ moderate Verluste überwiegen leichte Gewinne.
+Mit rund 53\,\% aller Beobachtungen ist es das häufigste Regime.
 
-\subsubsection{Regime 2 (Hochvolatiler Ausbruch)}
-Diese Phase ist durch eine sehr hohe Volatilität und extreme Preisausschläge (positive wie negative) definiert.
-Solche Zustände treten häufig bei geopolitischen Krisen oder fundamentalen Marktveränderungen auf und signalisieren ein erhöhtes ökonomisches Risiko.
-In diesem Regime ist die Vorhersagekraft der Modelle stark eingeschränkt, und es empfiehlt sich, die Unsicherheitsabschätzung stärker zu gewichten und vorsichtigere Beschaffungsentscheidungen zu treffen.
+\subsubsection{Regime 1 (Stabiler Aufwärtstrend)}
+Dieses Regime weist eine vergleichbare Volatilität wie Regime~0 auf, jedoch einen positiven Preistrend und eine rechtsschiefe Verteilung.
+Es macht etwa 42\,\% der Datenpunkte aus und repräsentiert geordnete Aufwärtsphasen ohne außergewöhnliche Marktverwerfungen.
 
-\subsection{Integration in die Entscheidungslogik}
-Die Motivation für diesen hybriden Ansatz liegt in der unterschiedlichen Vorhersagbarkeit der Regime.
-Während statistische Modelle in stabilen Phasen (Regime 0 und 1) tendenziell verlässlichere Trends identifizieren, nimmt das Prognoserisiko in hochvolatilen Phasen (Regime 2) zu.
-Die Regeln dienen somit als Filter.
+\subsubsection{Regime 2 (Hochvolatile Ausnahmephase)}
+Regime~2 ist durch eine rund 2,7-fach erhöhte Volatilität gegenüber Regime~0 sowie eine stark rechtsschiefe Verteilung gekennzeichnet.
+Es tritt mit nur etwa 5\,\% aller Beobachtungen selten auf und korrespondiert typischerweise mit fundamentalen Marktveränderungen oder geopolitischen Schocks -- im vorliegenden Datensatz zählt die COVID-19-Pandemiephase 2020 dazu, die entsprechende Ausreißer in Validierungs- und Testergebnissen verursachen kann.
 
-\subsubsection{Regel A (Risikominimierung)}
-Wird Regime 2 identifiziert, aktiviert das System einen Warnstatus.
-In diesem Fall wird die Konfidenz der KI-Punktprognose herabgestuft und die Gewichtung der probabilistischen Unsicherheitsschätzung erhöht.
-
-\subsubsection{Regel B (Trendbestätigung)}
-In Regime 1 führt eine positive KI-Prognose zu einer Empfehlung für einen Kauf, da das statistische Ergebnis für eine Fortsetzung des Bullenmarktes in diesem Regime höher ist.
-
-Durch diese Verknüpfung von Marktzuständen mit probabilistischen Vorhersagen wird die Robustheit des Gesamtsystems gegenüber Marktanomalien gesteigert.
+\subsection{Integration in die Modelle}
+Das erkannte Regime wird nicht als regelbasierter Filter eingesetzt, sondern als numerisches kontinuierliches Merkmal dem Feature-Set der maschinellen Lernmodelle hinzugefügt.
+Die Modelle lernen damit implizit, Preisprognosen in Abhängigkeit des aktuellen Marktregimes anzupassen.
+Dieser Ansatz ermöglicht es insbesondere Baummodellen und neuronalen Netzen, regimespezifische Muster zu erlernen, ohne dass explizite Regelkodierungen notwendig sind.

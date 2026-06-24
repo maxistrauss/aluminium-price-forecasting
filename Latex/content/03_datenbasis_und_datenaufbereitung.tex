@@ -9,7 +9,7 @@ Ziel ist es, eine robuste und konsistente Datenbasis zu schaffen, die die Anford
 
 Die Datengrundlage umfasst historische tägliche Schlusskurse für Aluminium sowie sechs weitere Industriemetalle (Kupfer, Gold, Blei, Nickel, Silber und Zink).
 Diese externen Variablen dienen dazu, marktübergreifende Abhängigkeiten zu erfassen.
-Die Daten stammen aus der öffentlich zugänglichen Kaggle Datenset von Naveen Sharma \cite{Metals} und decken den Zeitraum vom 01. Januar 2014 bis zum 29. August 2024 ab.
+Die Daten stammen aus einem öffentlich zugänglichen Datensatz auf der Plattform Kaggle, wurden von Naveen Sharma \cite{Metals} zur verfügung gestellt und decken den Zeitraum vom 01. Januar 2014 bis zum 29. August 2024 ab.
 Um makroökonomische Einflüsse abzubilden, wird zusätzlich der S\&P 500 Index von Investing.com \cite{SP2026} integriert.
 Jeder Datensatz enthält die Börsenparameter Eröffnungspreis (Open), Tageshoch (High), Tagestief (Low), Schlusskurs (Close) sowie das Handelsvolumen (Volume).
 
@@ -58,18 +58,8 @@ Die Einheitswurzel ist ein Indikator für Nicht-Stationarität. Erst nach dieser
 Mittels der \emph{Partial Autocorrelation Function} wird ermittelt, wie viele Tage in der Vergangenheit tatsächlich einen Einfluss auf den heutigen Wert haben.
 Diese Analyse liefert die Entscheidung für die Wahl der Lags (z. B. 14 Tage) und die Sequenzlänge (21 Tage).
 
-\subsection{Chronologische Datenaufteilung}
-
-Die Aufteilung der Daten in Trainings-, Validierungs- und Testmengen erfolgt chronologisch, um einen \emph{Look-Ahead-Bias} zu verhindern. Der Look-Ahead-Bias tritt auf, wenn Informationen aus der Zukunft in das Training einbezogen werden, was zu unrealistisch guten Ergebnissen führt, die in der Praxis nicht reproduzierbar sind. Die Aufteilung erfolgt wie folgt:
-
-\subsubsection{Training (2014--2019)}
-In dieser Phase lernt das Modell die grundlegenden Muster und Zusammenhänge in den Daten kennen. 
-
-\subsubsection{Validierung (2020--2021)}
-Dieser Zeitraum dient der Optimierung der Hyperparameter und der Steuerung des \emph{Early-Stopping-Prozesses} zur Vermeidung von \emph{Overfitting}.
-Early Stopping ist eine Technik, bei der das Training abgebrochen wird, sobald die Leistung auf der Validierungsmenge sich nicht mehr verbessert.
-Dies verhindert, dass das Modell zu stark an die Trainingsdaten angepasst wird und somit seine Generalisierungsfähigkeit verliert, was Overfitting genannt wird.
-
-\subsubsection{Test (2022--2024)}
-Die Evaluation findet auf Daten statt, die das Modell während des gesamten Prozesses nicht gesehen hat.
-Dies simuliert die Generalisierungsfähigkeit in der realen Anwendung.
+\subsection{Chronologische Datenaufteilung mittels Walk-Forward-Validierung}
+Da es sich bei der Aluminiumpreisvorhersage um ein Zeitreihenproblem handelt, erfolgt die Datenaufteilung strikt chronologisch. Eine zufällige Aufteilung wäre ungeeignet, da dadurch Informationen aus der Zukunft in das Training einfließen könnten und ein Look-Ahead-Bias entstehen würde. Um die reale Anwendungssituation möglichst gut abzubilden, wird statt einer festen einmaligen Aufteilung eine Walk-Forward-Validierung mit expanding window verwendet. \cite{lookahead_bias_ts, matlab_expanding_window}
+Beim expanding-window-Ansatz wächst der Trainingszeitraum mit jedem Validierungsschritt an. Das Modell wird zunächst auf einem frühen historischen Abschnitt trainiert und anschließend auf dem jeweils folgenden Zeitraum bewertet. Danach wird das Trainingsfenster um die neu hinzugekommenen Beobachtungen erweitert und der nächste Schritt durchgeführt. Dadurch wird simuliert, wie ein Modell in der Praxis regelmäßig mit neuen Daten aktualisiert und erneut eingesetzt werden kann.
+Der Prognosehorizont wird bewusst kurz gehalten. Für das LSTM-Modell werden Vorhersagen für 1 Tag, 5 Tage und 21 Tage im Voraus betrachtet. Damit werden sowohl sehr kurzfristige Preisbewegungen als auch leicht mittel- bis kurzfristige Entwicklungen abgedeckt. Ein kurzer Horizont ist in diesem Kontext sinnvoll, da sich Rohstoffpreise häufig volatil verhalten und längerfristige Vorhersagen deutlich unsicherer werden.
+Die Evaluation erfolgt jeweils auf den Zeitabschnitten, die dem Trainingsfenster unmittelbar folgen und dem Modell zuvor nicht bekannt waren. Auf diese Weise wird die Generalisierungsfähigkeit realitätsnah geprüft. Durch die Kombination aus expanding window und kurzen Prognosehorizonten lässt sich beurteilen, wie stabil das Modell auf neue Marktdaten reagiert und wie gut es kurzfristige Preisbewegungen erfassen kann.

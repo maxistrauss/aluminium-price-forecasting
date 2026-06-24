@@ -45,7 +45,7 @@ Angesichts der hohen Dimensionalität des Merkmalsraums besteht die Gefahr der �
 Zur Reduktion der Komplexität wird ein \texttt{ExtraTreesRegressor} (Extremely Randomized Trees) eingesetzt.
 Dieser schätzt die Bedeutung jedes Merkmals für die Vorhersage des Zielwerts (Aluminiumpreis) und ermöglicht so eine gezielte Auswahl der relevantesten Features.
 Nur Merkmale, deren Bedeutung über dem Durchschnitt liegt, werden beibehalten.
-Dieser Prozess reduziert den Satz auf ca. 440 hochrelevante Variablen.
+Dieser Prozess reduziert den Satz auf relevante Variablen.
 
 \subsection{Skalierung und Vermeidung von Data Leakage}
 Ein kritischer Aspekt bei der Zeitreihenprognose ist die Vermeidung von \emph{Data Leakage}, also dem ungewollten Einfließen von Informationen aus der Zukunft in den Trainingsprozess.
