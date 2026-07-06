@@ -1,56 +1,56 @@
 \section{Verwendete Modelle}
 
-Die Architektur der Datenpipeline erlaubt es verschieden Modelle zu testen.
-Es werden sowohl Baseline Modelle als auch komplexere Modelle trainiert.
-Die Baseline Modelle dienen als Vergleich um die Performance der anderen Modelle besser einschätzen zu können.
+Die Architektur der Datenpipeline erlaubt es, verschiedene Modelle zu testen.
+Es werden sowohl Baseline-Modelle als auch komplexere Modelle trainiert.
+Die Baseline-Modelle dienen als Referenz, um die Leistung der komplexeren Ansätze besser einordnen zu können.
 
 \subsubsection{Naive Baseline}
 
-Die Naive Baseline liefter als Vorhersage den Wert der Letzten Eingabe zurück\cite{Baseline2024}.
+Die naive Baseline liefert als Vorhersage den Wert der letzten Eingabe zurück \cite{Baseline2024}.
 
 \subsubsection{Mean Baseline}
 
-Die Mean Baseline liefert wie der Name impliziert den Mittelwert der Trainingsdaten als Vorhersage \cite{Baseline2024}.
+Die Mean Baseline liefert, wie der Name bereits andeutet, den Mittelwert der Trainingsdaten als Vorhersage \cite{Baseline2024}.
 
 \subsubsection{Lineare Regression}
 
-Die Lineare Regression ist das standart Verfahren um Lineare Zusammenhänge in Daten Vorherzusagen.
-Die Daten Werden durch eine Gerade angenähert und es können neue Daten aufgrund dieser Gerade vorhergesagt werden \cite{Linear2026}.
+Die lineare Regression ist ein Standardverfahren, um lineare Zusammenhänge in Daten vorherzusagen.
+Die Daten werden durch eine Gerade angenähert, auf deren Basis neue Werte prognostiziert werden können \cite{Linear2026}.
 
 \subsubsection{Ridge Regression}
 
-Die Ridge Regression ist eine Erweiterung der Linearen Regression um L2-Regularisierung, die die größe der Koeffizenten minimieren und so overfitting verhindern soll \cite{Ridge2026}.
+Die Ridge Regression ist eine Erweiterung der linearen Regression um L2-Regularisierung, die die Größe der Koeffizienten minimiert und so Overfitting verhindern soll \cite{Ridge2026}.
 
 
 \subsubsection{XGB Regressor}
 
-XGB (Extreme Gradient Boosting) ist ein Regressionsmodell das Vorhersagen mit einer Folge von Entscheidungsbäumen trifft.
-Durch die Folge an Bäumen können sowohl nicht lineare Zusammenhänge als auch Zeitreihen modelliert werden \cite{XGBoost}.
+XGB (Extreme Gradient Boosting) ist ein Regressionsmodell, das Vorhersagen mit einer Folge von Entscheidungsbäumen trifft.
+Durch die Kombination mehrerer Bäume können sowohl nichtlineare Zusammenhänge als auch komplexe Zeitreihenstrukturen modelliert werden \cite{XGBoost}.
 
 
-\subsubsection{LGMB Regressor}
+\subsubsection{LGBM Regressor}
 
-LGMB (Light Gradient Boosting Machine) ist eine auf Geschwindigkeit optimierte Version von XGB.
-Es ist dabei bei großen Datenmengen effizenter als XGB \cite{LightgbmLGBMRegressor}.
+LGBM (Light Gradient Boosting Machine) ist eine auf Geschwindigkeit optimierte Version von XGB.
+Es ist bei großen Datenmengen effizienter als XGB \cite{LightgbmLGBMRegressor}.
 
 \subsubsection{SVR}
 
-SVR (Support Vector Regressor) ist eine Variante der SVM (Support Vector Machine) für Regressionsmodelle.
-Das Verfahren ist robust gegen overfitting und kann komplexe Muster erfassen, weswegen es häufig für die Prognose von Werten verwendet wird \cite{SVR}.
+SVR (Support Vector Regressor) ist eine Variante der SVM (Support Vector Machine) für Regressionsaufgaben.
+Das Verfahren ist robust gegenüber Overfitting und kann komplexe Muster erfassen, weshalb es häufig für die Prognose von Werten verwendet wird \cite{SVR}.
 
 \subsubsection{KNN}
 
-KNN (K-Nearest Neighbors Regressor) liefert Vorhersagen aufgrund ähnlich Punkte in den Trainingsdaten 
-Dazu Müssen erst die Vergleichswerte (Lag Werte) aus den Trainingsdaten erzeugt werden.
-Für Vorhersagen werden dann diese Werte überprüft und aus den ähnlichsten werten der mittelwert gebildet \cite{Knearest2026}.
+KNN (K-Nearest Neighbors Regressor) liefert Vorhersagen auf Grundlage ähnlicher Punkte in den Trainingsdaten.
+Dazu müssen zunächst die Vergleichswerte (Lag-Werte) aus den Trainingsdaten erzeugt werden.
+Für Vorhersagen werden diese Werte dann mit den ähnlichsten Beobachtungen verglichen und daraus der Mittelwert gebildet \cite{Knearest2026}.
 
 \subsubsection{LSTM}
 
-Ein LSTM-Netzwerk (Long Short-Term Memory) ist ein von Sepp Hochreiter und Jürgen Schmidhuber im Jahr 1997 entwickeltes Verfahren \cite{Long2026}, das im Gegensatz zu anderen rekurrenten neuronalen Netzwerken ein Kurzzeitgedächtnis modellieren kann.
+Ein LSTM-Netzwerk (Long Short-Term Memory) ist ein von Sepp Hochreiter und Jürgen Schmidhuber im Jahr 1997 entwickeltes Verfahren \cite{Long2026}, das im Gegensatz zu anderen rekurrenten neuronalen Netzwerken ein Gedächtnis über längere Zeiträume modellieren kann.
 Dies geschieht durch drei Arten von Toren: das Eingangstor, das Vergessens- bzw. Merktor sowie das Ausgangstor.
 Diese ermöglichen bei der Rückführung des Fehlersignals eine effektivere Aktualisierung der Gewichte.
 
-Aufgrund seiner Speicherfähigkeit eignet sich ein LSTM-Netzwerk besonders gut zum Lernen von Zeitreihen und wird daher in dieser Arbeit als zentrales Modell zur Vorhersage eingesetzt \cite{Long2026}.
+Aufgrund seiner Speicherfähigkeit eignet sich ein LSTM-Netzwerk besonders gut zum Lernen von Zeitreihen und wird daher in dieser Arbeit als zentrales Modell für die Vorhersage eingesetzt \cite{Long2026}.
 
 
 

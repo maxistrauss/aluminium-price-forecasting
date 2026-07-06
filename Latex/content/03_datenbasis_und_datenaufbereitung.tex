@@ -9,7 +9,7 @@ Ziel ist es, eine robuste und konsistente Datenbasis zu schaffen, die die Anford
 
 Die Datengrundlage umfasst historische tägliche Schlusskurse für Aluminium sowie sechs weitere Industriemetalle (Kupfer, Gold, Blei, Nickel, Silber und Zink).
 Diese externen Variablen dienen dazu, marktübergreifende Abhängigkeiten zu erfassen.
-Die Daten stammen aus einem öffentlich zugänglichen Datensatz auf der Plattform Kaggle, wurden von Naveen Sharma \cite{Metals} zur verfügung gestellt und decken den Zeitraum vom 01. Januar 2014 bis zum 29. August 2024 ab.
+Die Daten stammen aus einem öffentlich zugänglichen Datensatz auf der Plattform Kaggle, wurden von Naveen Sharma \cite{Metals} zur Verfügung gestellt und decken den Zeitraum vom 1. Januar 2014 bis zum 29. August 2024 ab.
 Um makroökonomische Einflüsse abzubilden, wird zusätzlich der S\&P 500 Index von Investing.com \cite{SP2026} integriert.
 Jeder Datensatz enthält die Börsenparameter Eröffnungspreis (Open), Tageshoch (High), Tagestief (Low), Schlusskurs (Close) sowie das Handelsvolumen (Volume).
 
@@ -33,7 +33,7 @@ Doppelte Zeilen in den Daten werden identifiziert und entfernt, um Fehler in den
 \subsection{Transformation zu logarithmischen Renditen (Log-Returns)}
 
 Ein zentrales Konzept der Finanzmathematik ist die Transformation von Preisniveaus in Renditen.
-Preiszeitreihen sind in der Regel nicht-stationär, was statistische Tests Test oft fehlschlagen lässt.
+Preiszeitreihen sind in der Regel nicht-stationär, was statistische Tests oft fehlschlagen lässt.
 Um Stationarität zu erreichen, was eine Grundvoraussetzung für viele statistische Lernverfahren ist, werden logarithmische Renditen ($r_t$) berechnet:
 
 \begin{equation}
@@ -41,9 +41,9 @@ Um Stationarität zu erreichen, was eine Grundvoraussetzung für viele statistis
 \end{equation}
 
 Wobei $P_t$ den Schlusskurs zum Zeitpunkt $t$ darstellt.
-Logarithmische Renditen bieten gegenüber einfachen prozentualen Änderungen den Vorteil der Zeit-Additivität, das bedeutet, dass die Summe der täglichen Log-Returns der Gesamtrendite des Zeitraums entspricht.
+Logarithmische Renditen bieten gegenüber einfachen prozentualen Änderungen den Vorteil der Zeitadditivität, das bedeutet, dass die Summe der täglichen Log-Returns der Gesamtrendite des Zeitraums entspricht.
 Dies führt zu einer symmetrischeren Verteilung der Daten.
-Dies stabilisiert den Lernprozess neuronaler Netze, da das Modell nicht ständig neue tatsäcliche Preise (z. B. 1500 USD vs. 3000 USD) verarbeiten muss, sondern sich auf relative Änderungen konzentriert.
+Dies stabilisiert den Lernprozess neuronaler Netze, da das Modell nicht ständig neue tatsächliche Preise (z. B. 1500 USD vs. 3000 USD) verarbeiten muss, sondern sich auf relative Änderungen konzentriert.
 
 \subsection{Analytische Voruntersuchungen}
 
@@ -51,12 +51,12 @@ Um die Korrektheit der Daten für maschinelle Lernverfahren zu validieren, werde
 
 \subsubsection{Stationaritätsprüfung}
 Der \emph{ADF-Test} wird verwendet, um sicherzustellen, dass die Zeitreihe der Log-Returns keine Einheitswurzel mehr besitzt.
-Das bedeutet dass die Daten keine Trends mehr aufweisen und die Varianz über die Zeit konstant ist.
+Das bedeutet, dass die Daten keine Trends mehr aufweisen und die Varianz über die Zeit konstant ist.
 Die Einheitswurzel ist ein Indikator für Nicht-Stationarität. Erst nach dieser Bestätigung kann davon ausgegangen werden, dass das Modell stabile Gewichte lernt.
 
 \subsubsection{Autokorrelationsanalyse}
 Mittels der \emph{Partial Autocorrelation Function} wird ermittelt, wie viele Tage in der Vergangenheit tatsächlich einen Einfluss auf den heutigen Wert haben.
-Diese Analyse liefert die Entscheidung für die Wahl der Lags (z. B. 14 Tage) und die Sequenzlänge (21 Tage).
+Diese Analyse liefert die Grundlage für die Wahl der Lags (z. B. 14 Tage) und die Sequenzlänge (21 Tage).
 
 \subsection{Chronologische Datenaufteilung mittels Walk-Forward-Validierung}
 Da es sich bei der Aluminiumpreisvorhersage um ein Zeitreihenproblem handelt, erfolgt die Datenaufteilung strikt chronologisch. Eine zufällige Aufteilung wäre ungeeignet, da dadurch Informationen aus der Zukunft in das Training einfließen könnten und ein Look-Ahead-Bias entstehen würde. Um die reale Anwendungssituation möglichst gut abzubilden, wird statt einer festen einmaligen Aufteilung eine Walk-Forward-Validierung mit expanding window verwendet. \cite{lookahead_bias_ts, matlab_expanding_window}

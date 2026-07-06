@@ -4,30 +4,29 @@
 Das Projekt untersucht die Möglichkeiten und Grenzen einer KI-gestützten Aluminiumpreisprognose für den industriellen Einkauf. Das entwickelte System liefert wertvolle Erkenntnisse für die Beschaffungsplanung und das Risikomanagement.
 
 \subsection{Zusammenfassung der Erkenntnisse}
-Die Analyse bestätigt, dass Rohstoffmärkte wie der Aluminiummarkt durch hohe Volatilität und ein niedriges Signal-Rausch-Verhältnis gekennzeichnet sind. Das bedeutet, dass alle bekannten Informationen bereits in den aktuellen Preisen enthalten sind und zukünftige Preisänderungen primär durch unvorhersehbare globale Ereignisse ausgelöst werden. Aus diesem Grund erreicht das System eine Richtungsgenauigkeit von ca. $51\,\%$. Technisch betrachtet ist es somit kaum möglich, die Marktentwicklung allein auf Basis historischer Daten zu "`schlagen"'.
+Die Analyse bestätigt, dass Rohstoffmärkte wie der Aluminiummarkt durch hohe Volatilität und ein niedriges Signal-Rausch-Verhältnis gekennzeichnet sind. Das bedeutet, dass ein Großteil der öffentlich verfügbaren Informationen bereits in den aktuellen Preisen reflektiert wird und zukünftige Preisänderungen nur begrenzt aus historischen Daten ableitbar sind. Aus diesem Grund erreicht das System eine Richtungsgenauigkeit von etwa $51\,\%$. Technisch betrachtet konnte damit keine robuste Überlegenheit gegenüber einfachen Referenzmodellen gezeigt werden.
 
 \subsection{Betriebswirtschaftlicher Nutzwert}
 Trotz der statistisch begrenzten Treffsicherheit bietet das System einen Mehrwert für den Einkaufsprozess.
 
-
 \subsubsection{Objektivierung der Marktbeobachtung}
-Die KI verarbeitet über 1.100 Marktsignale (z. B. Bewegungen bei Gold, Kupfer und Aktienindizes) gleichzeitig. Dies liefert ein objektives Stimmungsbild, das über subjektive Einschätzungen hinausgeht.
+Die KI verarbeitet über 1.100 Marktsignale (z. B. Bewegungen bei Gold, Kupfer und Aktienindizes) gleichzeitig. Dies liefert ein systematisches Lagebild, das über rein subjektive Einschätzungen hinausgeht.
 
 \subsubsection{Transparente Risikoabschätzung}
-Ein zentraler Vorteil ist die Berechnung von Wahrscheinlichkeitsbereichen (Konfidenzintervallen). Anstatt eine Kaufempfehlung zu versprechen, die unsicher und nicht genau ist, zeigt das System auf, in welchem Bereich sich der Preis mit hoher Wahrscheinlichkeit bewegen wird. Weite Intervalle signalisieren dem Einkäufer eine erhöhte Marktunruhe, was eine vorsichtigere Beschaffungsstrategie rechtfertigt.
+Ein zentraler Vorteil ist die Berechnung von Wahrscheinlichkeitsbereichen (Konfidenzintervallen). Anstatt eine scheinbar präzise, aber potenziell irreführende Punktprognose zu versprechen, zeigt das System auf, in welchem Bereich sich der Preis mit hoher Wahrscheinlichkeit bewegen dürfte. Weite Intervalle signalisieren dem Einkäufer eine erhöhte Marktunruhe und rechtfertigen eine vorsichtigere Beschaffungsstrategie.
 
 \subsubsection{Frühwarnung durch Marktphasen}
-Die automatische Erkennung von Marktzuständen (z. B. "`hochvolatiler Ausbruch"') dient als Frühwarnsystem für drohende Preissprünge oder Trendwenden.
+Die automatische Erkennung von Marktzuständen, etwa eines hochvolatilen Ausbruchs, dient als Frühwarnsystem für mögliche Preissprünge oder Trendwenden.
 
 \subsection{Praxis-Transfer und Systemgestaltung am Beispiel der maunsystem GmbH}
-Für den Transfer in die Praxis eines Unternehmens wie der maunsystem GmbH, einem Hersteller von Aluminium-Profilsystemen, muss das System auf die konkreten Einkaufsbedürfnisse angepasst werden.
+Für den Transfer in die Praxis eines Unternehmens wie der maunsystem GmbH, einem Hersteller von Aluminium-Profilsystemen, muss das System an die konkreten Einkaufsbedürfnisse angepasst werden.
 
 \subsubsection{Konzept für die Systemgestaltung}
 Das Einkaufs-Dashboard sollte folgende Funktionen bündeln:  
 \begin{itemize}
     \item Interaktive Risikobänder: Visualisierung des Preiskorridors zur direkten Einschätzung der Marktunsicherheit.
-    \item Cost-at-Risk Rechner: Übersetzung der Risiken in Euro basierend auf der geplanten Einkaufsmenge (z.\,B. max. Mehrkosten von 45.000\,\euro{} bei 150 Tonnen).
-    \item Automatische Warnmeldungen: Benachrichtigungen bei plötzlichem Wechsel in das Marktregime 2.
+    \item Cost-at-Risk-Rechner: Übersetzung der Risiken in Euro basierend auf der geplanten Einkaufsmenge (z.\,B. max. Mehrkosten von 45.000\,\euro{} bei 150 Tonnen).
+    \item Automatische Warnmeldungen: Benachrichtigungen bei plötzlichem Wechsel in ein stark volatiles Marktregime.
     \item Szenarien-Planer: Simulation von Preisentwicklungen unter makroökonomischen Schocks.
 \end{itemize}
 
