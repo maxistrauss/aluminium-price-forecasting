@@ -10,8 +10,10 @@ Nach dieser Theorie spiegeln Marktpreise alle öffentlich verfügbaren Informati
 Die Ergebnisse deuten darauf hin, dass die historischen Preis- und Volumendaten allein nicht ausreichen, um systematische Vorhersagemuster zu extrahieren.
 Dies könnte auf die hohe Komplexität des Marktes zurückzuführen sein, in dem zahlreiche Faktoren (z. B. geopolitische Ereignisse, technologische Entwicklungen) eine Rolle spielen, die nicht direkt in den Zeitreihen erfasst werden.
 
-%\subsection{Bedeutung der probabilistischen Prognose}
-%Ein Aspekt des Systems ist die Abkehr von algorithmischen Punktvorhersagen hin zu probabilistischen Verteilungen. Mittels MC-Dropout wird die Modellunsicherheit erkannt. Die Coverage von $90,8 \%$ für den 1-Tages-Horizont zeigt, dass das Modell in der Lage ist, die Varianz der Daten in einem statistischen Rahmen abzubilden. Dieser Ansatz bietet eine Grundlage für das Risikomanagement, da er keine exakte Punktlandung verspricht, sondern ein Spektrum der wahrscheinlichen Preisentwicklungen definiert. In Phasen mit hoher Unsicherheit (weite Konfidenzintervalle) kann die Beschaffungsstrategie  angepasst werden, um Risiken zu minimieren.
+\subsection{Bedeutung der probabilistischen Prognose und Unsicherheitskalibrierung}
+Durch den Wechsel auf probabilistische Prognosen mittels Monte-Carlo-Dropout (MC-Dropout) kann das System seine eigene Unsicherheit in Konfidenzintervallen ausdrücken. Ein Konfidenzintervall ist ein Bereich, der mit einer bestimmten Wahrscheinlichkeit den tatsächlichen Preis enthält. Die Ergebnisse in Tabelle~\ref{tab:results_lstm} zeigen die Stärken und Grenzen. Bei $h=1$ liegt die Coverage bei starken $90,8\,\%$, was verlässliche Kaufentscheidungen erlaubt. Bei längeren Horizonten sinkt die Coverage jedoch deutlich ($73,2\,\%$ bei $h=5$ und $56,0\,\%$ bei $h=21$). Die Risikobänder sind für mittelfristige Zeiträume somit zu eng und unterschätzen das Risiko. 
+
+Für die Praxis bedeutet dies, dass man den Intervallen bei längeren Fristen nicht blind vertrauen darf. Die schwindende Coverage zeigt dem Einkauf jedoch, wann er auf alternative Absicherungsstrategien, wie Lagerhaltung oder Festpreise, ausweichen sollte.
 
 \subsection{Grenzen der Datenbasis}
 Die Beschränkung auf historische Preis- und Volumenzeitreihen sowie ge\-samt\-wirt\-schaft\-liche Indizes lässt weitere Faktoren außer Acht.
