@@ -7,22 +7,7 @@ Die Erkennung dieser Regime ermöglicht es, die Vorhersagen der KI-Modelle entsp
 Marktphasen werden mittels eines KMeans-Clustering-Verfahrens auf Basis historischer Aluminium-Preisdaten identifiziert.
 Als Eingangsgrößen dienen drei Merkmale: die EWMA-Volatilität (21-Tage-Fenster, als GARCH-Proxy), der rollende Preistrend (10-Tage-Fenster) sowie die rollende Schiefe der Preisverteilung.
 Das Clustering wird ausschließlich auf den Trainingsdaten (bis einschließlich 2019) gefittet und anschließend auf den gesamten Datensatz angewendet, um eine Datenleckage in Validierungs- und Testzeitraum zu vermeiden.
-Es werden drei Regime unterschieden, deren Schwerpunkte (\textit{Centroids}) in Tabelle~\ref{tab:regime_centroids} dargestellt sind.
-
-\begin{table}[H]
-\centering
-\caption{Regime-Schwerpunkte (Trainingsdaten)}
-\label{tab:regime_centroids}
-\begin{tabular}{lrrrr}
-\toprule
-Regime & Volatilität & Trend & Schiefe & Beobachtungen \\
-\midrule
-0 & 0{,}0071 & $-$0{,}0015 & $-$0{,}40 & 1203 \\
-1 & 0{,}0084 & $+$0{,}0018 & $+$0{,}83 &  901 \\
-2 & 0{,}0195 & $+$0{,}0042 & $+$1{,}45 &   82 \\
-\bottomrule
-\end{tabular}
-\end{table}
+Es werden drei Regime unterschieden:
 
 \subsubsection{Regime 0 (Stabiler Bärenmarkt)}
 Dieses Regime ist durch die geringste Volatilität und einen leicht negativen Preistrend gekennzeichnet.

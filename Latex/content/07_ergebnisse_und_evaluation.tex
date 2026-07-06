@@ -51,18 +51,7 @@ Technisch lässt sich dies darauf zurückführen, dass die Modelle Schwierigkeit
 
 \subsection{Deep-Learning-Modelle und multi-temporale Analyse}
 In der tiefergehenden Analyse des Deep-Learning-Verfahren (LSTM) werden die Vorhersagen der logarithmischen Renditen betrachtet.
-Abbildung \ref{fig:daily_price_change} visualisiert die vorhergesagte Preisänderungen im Zeitverlauf.
-
-\begin{figure}[hpt!]
-\centering
-	\includegraphics[width=0.9\linewidth]{./img/dl_models_test_predictions.png}
-	\caption{Prognose der täglichen Preisänderung ($h=1$).
-	Die X-Achse stellt den Zeitverlauf dar, die Y-Achse die logarithmische Rendite.
-	Die farbigen Linien (Modelle) zeigen deutlich geringere Amplituden als die schwarze Linie (Wahrheit).
-	Dies deutet auf eine vorsichtige Strategie des Modells hin, das nur kleine Änderungen vorhersagt.}
-    \label{fig:daily_price_change}
-\end{figure}
-
+Die Modelle zeigen dabei deutlich geringere Amplituden als der tatsächliche Verlauf, was auf eine vorsichtige Prognose\-strategie hindeutet.
 Wird diese Vorhersage auf das absolute Preisniveau in USD transformiert, ergibt sich die Darstellung in Abbildung \ref{fig:daily_price_pred}.
 Hierbei wird die Vorhersage des Modells direkt gegen den realen Preis geplottet.
 
